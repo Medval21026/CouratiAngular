@@ -1,0 +1,18 @@
+<div class="flex justify-center items-center h-screen">
+    <div class="bg-white p-8 rounded shadow-md w-96">
+        <h1 class="text-2xl font-semibold mb-4 text-center">Login</h1>
+        <div *ngIf="errorMessage" class="text-red-500 text-center mb-4">
+            {{ errorMessage }}
+        </div>
+
+        <form (ngSubmit)="onLogin($event)">
+            <div class="mb-4">
+              <input type="text" name="email" [(ngModel)]="email" placeholder="Email" required autocomplete="off" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400">
+            </div>
+            <div class="mb-6">
+              <input type="password" name="password" [(ngModel)]="password" placeholder="Password" required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400">
+            </div>
+            <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400">Login</button><br><br>
+        </form>
+    </div>
+</div>
