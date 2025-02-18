@@ -1,0 +1,25 @@
+<div class="container mt-5">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUniversityModal">
+      Ajouter une Université
+    </button>
+    <div class="modal fade" id="addUniversityModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle">Ajouter une Université</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form (submit)="onSubmit()">
+              <div class="mb-3">
+                <label for="name" class="form-label">Nom de l'Université</label>
+                <input type="text" id="name" class="form-control" [(ngModel)]="university.name" name="name" required>
+              </div>
+              <button type="submit" class="btn btn-success">Ajouter</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

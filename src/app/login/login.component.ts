@@ -18,7 +18,7 @@ export class LoginComponent {
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private authService: AuthserviceService,router:Router) { }
+  constructor(private authService: AuthserviceService,private router:Router) { }
 
   async onLogin(event: Event) {
     event.preventDefault();
@@ -26,6 +26,7 @@ export class LoginComponent {
     try {
       const data = await this.authService.login(this.email, this.password);
       console.log('Login successful:', data);
+      this.router.navigate(['/university']);
     } catch (error) {
       this.errorMessage = 'Email ou mot de passe incorrect';
     }
