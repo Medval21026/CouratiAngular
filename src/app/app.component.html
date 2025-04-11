@@ -1,18 +1,21 @@
-<div class="containere">
-    <div *ngIf="showLayout" class="navbare">
-        <div class="logo">CouRati</div>
-        <div class="elements">
-            <div class="university" routerLink="/universi">University</div>
-            <div class="institut">Institut</div>
-            <div class="college">College</div>
-            <div class="academic">Academic</div>
-            <div class="subject">Subject</div>
-            <div class="specialisation">Specialisation</div>
-            <div class="semestre">Semestre</div>
-            <div class="lesson">Lesson</div>
-            <div class="devoire">Devoire</div>
-            <div class="examen">Examen</div>
+<div class="width_">
+    <div *ngIf="showLayout">
+        <div class="navbare">
+        <div class="logo">ArcHivi</div>
+        <div class="elements" [ngClass]="{'expanded': showSubjects}">
+            <a routerLink="/university" class="university" (click)="toggleCollege($event); setActive($event, 'university')" [ngClass]="{'active': isActive('university')}">University</a>
+            <a routerLink="/college" class="college" *ngIf="showCollege"(click)="setActive($event, 'college')" [ngClass]="{'active': isActive('college')}">College</a>
+            <a routerLink="/institut" class="university" (click)="setActive($event, 'institut')" [ngClass]="{'active': isActive('institut')}">Institut</a>
+            <a routerLink="/semestre" class="university" (click)="setActive($event, 'semestre')" [ngClass]="{'active': isActive('semestre')}">Semestre</a>
+            <a routerLink="/subject" class="university" (click)="toggleSubjects($event); setActive($event, 'subject')" [ngClass]="{'active': isActive('subject')}">Subject</a>
+            <a routerLink="/td" class="college" *ngIf="showSubjects" (click)="setActive($event, 'td')" [ngClass]="{'active': isActive('td')}">TD</a>
+            <a routerLink="/tp" class="college" *ngIf="showSubjects" (click)="setActive($event, 'tp')" [ngClass]="{'active': isActive('tp')}">TP</a>
+            <a routerLink="/devoire" class="university" (click)="setActive($event, 'devoire')" [ngClass]="{'active': isActive('devoire')}">Devoire</a>
+            <a routerLink="/examen" class="university" (click)="setActive($event, 'examen')" [ngClass]="{'active': isActive('examen')}">Examen</a>
+            <a routerLink="/lesson" class="university" (click)="setActive($event, 'lesson')" [ngClass]="{'active': isActive('lesson')}">Lesson</a>
+            <a routerLink="/specialisation" class="university" (click)="setActive($event, 'specialization')" [ngClass]="{'active': isActive('specialization')}">Specialité</a>
         </div>
+    </div>
     </div>
     <div class="content">
         <router-outlet></router-outlet>

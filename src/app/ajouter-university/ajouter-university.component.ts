@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { UniversityService } from '../services/university.service';
 import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-ajouter-university',
   imports: [FormsModule],
   templateUrl: './ajouter-university.component.html',
-  styleUrl: './ajouter-university.component.css'
+  styleUrls: ['./ajouter-university.component.css']
 })
 export class AjouterUniversityComponent {
   university = { name: '' };
+  @Output() universityAdded = new EventEmitter<any>();  // Émettre l'université ajoutée
 
   constructor(private universityService: UniversityService) {}
 
@@ -16,8 +18,12 @@ export class AjouterUniversityComponent {
     if (this.university.name.trim() !== '') {
       this.universityService.addUniversity(this.university)
         .then(response => {
+          const closeButton = document.querySelector('[data-bs-dismiss="modal"]') as HTMLElement;
+          if (closeButton) {
+            (closeButton as HTMLButtonElement).click();
+          }
+          this.universityAdded.emit(response);
           this.university.name = '';
-          window.location.reload(); // Réinitialiser le champ après soumission
         })
         .catch(error => {
           console.error('Erreur:', error);

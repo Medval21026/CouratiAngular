@@ -1,37 +1,99 @@
-.containere{
+.width_{
     width: 100%;
     display: flex;
     flex-direction: column;
 }
-.navbare{
+.navbare {
     width: 100%;
     height: 11vh;
-    background-color: blue;
+    background-color: #fff;
     display: flex;
     flex-direction: row;
     align-items: center;
     padding-left: 5px;
     justify-content: space-between;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Ombre douce */
 }
+
 .logo{
-    color:blanchedalmond;
+    color:blue;
+    font-weight: bold;
 }
 .elements{
-    width: 70%;
-    /* background-color: red; */
+    width: 60%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
     height: 11vh;
     color: wheat;
 }
+.content{
+    width: 100%;
+    flex-direction: column;
+    display: flex;
+    overflow: scroll;
+}
+.content::-webkit-scrollbar {
+    width: 1px;
+}
+.content::-webkit-scrollbar-thumb {
+    background-color: #fff;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+.university {
+    text-decoration: none;
+    color: black;
+    width: 8%;
+    height: 6vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 60px;
+    font-size: small;
+    transition: background-color 0.3s ease;
+}
+
+.university:hover,
+.university.active {
+    background-color: blue; /* Applique un fond bleu quand c'est actif ou hover */
+    color: white; /* Change la couleur du texte pour contraster */
+    text-decoration: underline;
+    text-decoration-color: blue;
+    text-decoration-thickness: 3px; /* Augmente l'épaisseur de la ligne de décoration */
+    text-underline-offset: -5%; /* Décale la ligne de décoration vers le haut */
+    transform: translateY(-5%); /* Déplace légèrement l'élément vers le haut */
+}
+
+.college {
+    text-decoration: none;
+    color:rgba(0, 0, 0, 0.63);
+    width: 8%;
+    height: 6vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 60px;
+    font-size: small;
+    transition: background-color 0.3s ease;
+}
+
+.college:hover,
+.college.active {
+    background-color: blue; /* Applique un fond bleu quand c'est actif */
+    color: white; /* Change la couleur du texte pour contraster */
+    text-decoration: underline;
+    text-decoration-color: blue;
+    text-decoration-thickness: 3px; /* Augmente l'épaisseur de la ligne de décoration */
+    text-underline-offset: -5%; /* Décale la ligne de décoration vers le haut */
+    transform: translateY(-5%); /* Déplace légèrement l'élément vers le haut */
+}
 
 
-
-
-
-
-
-
-
+.elements.expanded {
+    width: 70%;
+}

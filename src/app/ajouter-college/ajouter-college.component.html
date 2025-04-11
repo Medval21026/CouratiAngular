@@ -1,0 +1,46 @@
+<div class="container1">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCollegeModal">
+      Ajouter un Collège
+    </button>
+    <div class="modal fade" id="addCollegeModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle">Ajouter un Collège</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form #addCollegeForm="ngForm" (ngSubmit)="onSubmit()">
+              <div class="mb-3">
+                <label for="name" class="form-label">Nom du Collège</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  class="form-control" 
+                  [(ngModel)]="college.name" 
+                  name="name" 
+                  required
+                  #name="ngModel">
+              </div>
+              <div class="mb-3">
+                <label for="university" class="form-label">Université</label>
+                <ng-select
+                  id="university"
+                  [items]="universities"
+                  bindLabel="name"
+                  bindValue="id"
+                  [(ngModel)]="college.universityId"
+                  name="universityId"
+                  placeholder="Sélectionnez une université"
+                  required
+                  #university="ngModel">
+                </ng-select>
+              </div>              
+              <button type="submit" class="btn btn-success" [disabled]="addCollegeForm.invalid">Ajouter</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container1">
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUniversityModal">
       Ajouter une Université
     </button>
@@ -10,12 +10,12 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form (submit)="onSubmit()">
+            <form (submit)="onSubmit()" #addUnivercityForm="ngForm">
               <div class="mb-3">
                 <label for="name" class="form-label">Nom de l'Université</label>
                 <input type="text" id="name" class="form-control" [(ngModel)]="university.name" name="name" required>
               </div>
-              <button type="submit" class="btn btn-success">Ajouter</button>
+              <button type="submit" class="btn btn-success" [disabled]="addUnivercityForm.invalid" >Ajouter</button>
             </form>
           </div>
         </div>

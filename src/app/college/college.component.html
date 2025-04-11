@@ -1,0 +1,30 @@
+<app-ajouter-college (collegeAdded)="loadColleges()"></app-ajouter-college>
+<div class="containere1">
+  <h2>Liste des Collèges</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th>Nom</th>
+          <th>Nom University</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let college of colleges">
+          <td>{{ college.name }}</td>
+          <td>{{ college.universityName }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm mr-4" (click)="openModal(college)" data-bs-toggle="modal" data-bs-target="#editCollegeModal">
+              Modifier
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteCollege(college.id)">
+              Supprimer
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<app-modifier-college *ngIf="selectedCollege" [college]="selectedCollege" (collegeUpdated)="onCollegeUpdated()"></app-modifier-college>

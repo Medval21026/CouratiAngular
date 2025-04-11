@@ -1,22 +1,19 @@
-<div class="modal fade" id="modifyUniversityModal" tabindex="-1" aria-labelledby="modifyModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modifyModalLabel">Modifier l'Université</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form (ngSubmit)="onSubmit()">
-            <div class="mb-3">
-              <label for="universityName" class="form-label">Nom de l'Université</label>
-              <div *ngIf="university">
-                <input type="text" id="universityName" class="form-control" [(ngModel)]="university.name" name="name" required>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-success">Enregistrer</button>
-          </form>
-        </div>
+<div *ngIf="university" class="modal fade show" id="modifyUniversityModal" tabindex="-1" aria-labelledby="modifyModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modifyUniversityModal">Modifier l'Université</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="updateUniversity()">
+          <div class="mb-3">
+            <label class="form-label">Nom de l'Université</label>
+            <input type="text" id="university" class="form-control" [(ngModel)]="university.name" name="name" required>
+          </div>
+          <button type="submit" class="btn btn-success" >Enregistrer</button>
+        </form>
       </div>
     </div>
   </div>
-  
+</div>

@@ -1,0 +1,26 @@
+<div class="container1">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addInstitutModal">
+      Ajouter un Institut
+    </button>
+  
+    <div class="modal fade" id="addInstitutModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle">Ajouter un Institut</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form #addInstitutForm="ngForm" (ngSubmit)="onSubmit()">
+              <div class="mb-3">
+                <label for="name" class="form-label">Nom de l'Institut</label>
+                <input type="text" id="name" class="form-control" [(ngModel)]="institute.name" name="name" required>
+              </div>
+              <button type="submit" class="btn btn-success" [disabled]="addInstitutForm.invalid">Ajouter</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

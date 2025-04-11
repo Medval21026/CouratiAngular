@@ -7,7 +7,8 @@ export class UniversityService {
 
   private readonly URL_UNIVERSITY = 'http://localhost:8079/universities/tous_universities';
   private readonly ADD_UNIVERSITY_URL = 'http://localhost:8079/universities/ajouter_university';
-
+  private readonly apiUrl='http://localhost:8079/universities/modifier'
+  private readonly DELETE_UNIVERSITY_URL = 'http://localhost:8079/universities/supprimer';
   constructor() { }
 
   getAllUniversities() {
@@ -42,28 +43,38 @@ export class UniversityService {
       throw error;
     });
   }
-  updateUniversity(id: number, university: { name: string }) {
-    const url = `http://localhost:8079/universities/modifier/${id}`;  // Utilise l'ID dans l'URL
-    return fetch(url, {
+  updateUniversity(id: number, updatedData: any) {
+    return fetch(`${this.apiUrl}/${id}`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(university)
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updatedData)
     })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erreur lors de la mise à jour');
+      }
+      return response.json();
+    })
     .catch(error => {
-      console.error('Erreur lors de la modification de l\'université:', error);
+      console.error('Erreur lors de la modification de l’université:', error);
       throw error;
     });
   }
-  getUniversityById(id: number) {
-    return fetch(`http://localhost:8079/universities/${id}`)
-      .then(response => response.json())
-      .catch(error => {
-        console.error('Erreur lors de la récupération de l\'université:', error);
-        throw error;
-      });
+  deleteUniversity(id: number) {
+    return fetch(`${this.DELETE_UNIVERSITY_URL}/${id}`, {
+      method: 'DELETE'
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erreur lors de la suppression');
+      }
+      return response.text().then(text => text ? JSON.parse(text) : {}); // Vérifie si la réponse est vide
+    })
+    .catch(error => {
+      console.error('Erreur lors de la suppression de l\'université:', error);
+      throw error;
+    });
   }
+  
 }
 

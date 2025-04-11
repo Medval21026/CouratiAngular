@@ -1,0 +1,64 @@
+<div class="container1">
+  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addspecialisationModal">
+    Ajouter une Spécialisation
+  </button>
+
+  <div class="modal fade" id="addspecialisationModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle">Ajouter une Spécialisation</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form #addspecialisationForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="name" class="form-label">Nom de la Spécialisation</label>
+              <input 
+                type="text" 
+                id="name" 
+                class="form-control" 
+                [(ngModel)]="specialisation.name" 
+                name="name" 
+                required
+                #name="ngModel">
+            </div>
+            
+            <div class="mb-3">
+              <label for="college" class="form-label">Collège</label>
+              <ng-select 
+                id="college"
+                class="form-control"
+                [items]="colleges"
+                bindLabel="name"
+                bindValue="id"
+                [(ngModel)]="specialisation.collegeId"
+                name="collegeId"
+                placeholder="Sélectionnez un collège"
+                required
+                #college="ngModel">
+              </ng-select>
+            </div>
+            
+            <div class="mb-3">
+              <label for="institute" class="form-label">Institut</label>
+              <ng-select 
+                id="institute"
+                class="form-control"
+                [items]="institutes"
+                bindLabel="name"
+                bindValue="id"
+                [(ngModel)]="specialisation.instituteId"
+                name="instituteId"
+                placeholder="Sélectionnez un institut"
+                required
+                #institute="ngModel">
+              </ng-select>
+            </div>
+            <button type="submit" class="btn btn-success" [disabled]="addspecialisationForm.invalid">Ajouter</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

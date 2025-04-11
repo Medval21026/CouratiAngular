@@ -1,0 +1,33 @@
+<app-ajouter-specialisation (specialisationAdded)="loadSpecialisations()"></app-ajouter-specialisation>
+
+<div class="containere1">
+  <h2>Liste des Spécialisations</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th>Nom</th>
+          <th>Collège</th>
+          <th>Institut</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let specialisation of specialisations">
+          <td>{{ specialisation.name }}</td>
+          <td>{{ specialisation.collegeName }}</td>
+          <td>{{ specialisation.instituteName }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm mr-4" (click)="openModal(specialisation)" data-bs-toggle="modal" data-bs-target="#modifySpecialisationModal">
+              Modifier
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteSpecialisation(specialisation.id)">
+              Supprimer
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<app-modifier-specialisation *ngIf="selectedSpecialisation" [specialisation]="selectedSpecialisation" (specialisationUpdated)="onSpecialisationUpdated()"></app-modifier-specialisation>

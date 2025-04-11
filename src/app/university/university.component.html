@@ -1,23 +1,25 @@
-<app-ajouter-university></app-ajouter-university>
-<app-modifier-university></app-modifier-university>
-<div class="container mt-4">
+
+<app-ajouter-university (universityAdded)="onUniversityAdded($event)"></app-ajouter-university>
+<app-modifier-university 
+  [university]="selectedUniversity" 
+  (universityUpdated)="onUniversityUpdated()">
+</app-modifier-university>
+<div class="containere1">
   <h2>Liste des Universités</h2>
   <div class="table-responsive">
     <table class="table table-bordered ">
       <thead class="thead-dark">
         <tr>
-          <th>ID</th>
           <th>Nom</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let university of universities">
-          <td>{{ university.id }}</td>
           <td>{{ university.name }}</td>
           <td>
-            <button class="btn btn-warning btn-sm mr-4" (click)="openModifyModal(university.id)">Modifier</button>
-            <button class="btn btn-danger btn-sm">Supprimer</button>
+            <button class="btn btn-warning btn-sm mr-4" (click)="openModal(university)">Modifier</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteUniversity(university.id)">Supprimer</button>
           </td>
         </tr>
       </tbody>

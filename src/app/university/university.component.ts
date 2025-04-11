@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';  // Importer isPlatformBrowser
 import { UniversityService } from '../services/university.service';
 import { CommonModule } from '@angular/common';
 import { AjouterUniversityComponent } from '../ajouter-university/ajouter-university.component';
-import { Router } from '@angular/router';
 import { ModifierUniversityComponent } from '../modifier-university/modifier-university.component';
-import bootstrap from 'bootstrap';  // Assurez-vous d'importer bootstrap correctement.
 
 @Component({
   selector: 'app-university',
@@ -13,35 +12,76 @@ import bootstrap from 'bootstrap';  // Assurez-vous d'importer bootstrap correct
   standalone: true,
   imports: [CommonModule, AjouterUniversityComponent, ModifierUniversityComponent]
 })
-export class UniversityComponent implements OnInit {
+export class UniversityComponent {
   universities: any[] = [];
-  universityToModify: number | null = null; // Ajouter cette propriété
+  selectedUniversity: any = null;
 
-  constructor(private universityService: UniversityService, private route: Router) {}
+  constructor(
+    private universityService: UniversityService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit() {
-    this.universityService.getAllUniversities()
-      .then(data => {
-        this.universities = data;
-      })
-      .catch(error => {
-        console.error('Erreur lors du chargement des universités:', error);
-      });
+    this.loadUniversities();
   }
 
-  openModifyModal(universityId: number) {
-    if (typeof document !== 'undefined') { 
-      const modalElement = document.getElementById('modifyUniversityModal');
-      if (modalElement) { 
-        import('bootstrap').then((bootstrap) => {
-          const modal = new bootstrap.Modal(modalElement);
-          modal.show();
-          this.universityToModify = universityId;  // Assurez-vous que cette propriété existe
-        });
-      } else {
-        console.error('Modal element not found!');
-      }
+  loadUniversities() {
+    this.universityService.getAllUniversities().then(data => {
+      this.universities = data;
+    }).catch(error => console.error(error));
+  }
+
+  openModal(university: any) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.selectedUniversity = { ...university };
+      setTimeout(() => {
+        const modalElement = document.getElementById('modifyUniversityModal');
+        if (modalElement) {
+          import('bootstrap').then((bootstrap) => {
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+          }).catch(err => console.error('Erreur lors de l\'importation de Bootstrap:', err));
+        } else {
+          console.error('Modal element not found');
+        }
+      }, 0);
     }
   }
-  
+
+  onUniversityUpdated() {
+    this.loadUniversities();
+    const modalElement = document.getElementById('modifyUniversityModal');
+    if (modalElement) {
+      import('bootstrap').then((bootstrap) => {
+        const modal = bootstrap.Modal.getInstance(modalElement);
+        if (modal) {
+          modal.hide();
+        }
+    }).catch(err => console.error('Erreur lors de la fermeture de la modal:', err));
+  }
+  }
+
+  deleteUniversity(id: number) {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette université ?')) {
+      this.universityService.deleteUniversity(id).then(() => {
+      const updatedUniversities = this.universities.filter(university => university.id !== id);
+      this.universities = [...updatedUniversities];
+      }).catch(error => {
+        console.error('Erreur lors de la suppression de l\'université:', error);
+      });
+    }
+  }  
+  onUniversityAdded(newUniversity: any) {
+    const modalElement = document.getElementById('addUniversityModal');
+    if (modalElement) {
+      import('bootstrap').then((bootstrap) => {
+        const modal = bootstrap.Modal.getInstance(modalElement);
+        console.log(modal); 
+        if (modal) {
+          modal.hide();  // Fermer la modal
+        }
+      }).catch(err => console.error('Erreur lors de la fermeture de la modal:', err));
+    }
+    this.universities = [...this.universities, newUniversity];
+  }
 }

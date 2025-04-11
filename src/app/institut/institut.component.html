@@ -1,0 +1,28 @@
+<app-ajouter-institut (instituteAdded)="loadInstitutes()"></app-ajouter-institut>
+<div class="containere1">
+  <h2>Liste des Instituts</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered ">
+      <thead class="thead-dark">
+        <tr>
+          <th>Nom</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let institute of institutes">
+          <td>{{ institute.name }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm mr-4" (click)="openModal(institute)" data-bs-toggle="modal" data-bs-target="#editInstitutModal">
+              Modifier
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteInstitut(institute.id)">
+              Supprimer
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<app-modifier-institut *ngIf="selectedInstitut" [institute]="selectedInstitut" (instituteUpdated)="onInstitutUpdated()"></app-modifier-institut>
