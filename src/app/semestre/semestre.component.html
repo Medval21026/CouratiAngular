@@ -1,1 +1,34 @@
-<p>semestre works!</p>
+<app-ajouter-semestre (semestreAdded)="loadSemestres()"></app-ajouter-semestre>
+
+<div class="containere1">
+  <h2>Liste des Semestres</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th>semesterNumber</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let semestre of semestres">
+          <td>{{ semestre.semesterNumber }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm mr-4" (click)="openModal(semestre)" data-bs-toggle="modal" data-bs-target="#editSemestreModal">
+              Modifier
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteSemestre(semestre.id)">
+              Supprimer
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-modifier-semestre
+  *ngIf="selectedSemestre"
+  [semestre]="selectedSemestre"
+  (semestreUpdated)="onSemestreUpdated()">
+</app-modifier-semestre>

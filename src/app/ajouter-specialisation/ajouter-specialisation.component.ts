@@ -15,7 +15,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
   styleUrls: ['./ajouter-specialisation.component.css']
 })
 export class AjouterSpecialisationComponent implements OnInit {
-  specialisation = { name: '', collegeId: '' as number | '', instituteId: '' as number | '' };
+  specialisation = { name: '', collegeId: null as number | null, instituteId: null as number | null };
   colleges: any[] = [];
   institutes: any[] = [];
 
@@ -37,13 +37,13 @@ export class AjouterSpecialisationComponent implements OnInit {
   }
 
   async onSubmit() {
-    if (this.specialisation.name.trim() !== '' && this.specialisation.collegeId && this.specialisation.instituteId) {
+    if (this.specialisation.name.trim() !== '') {
       try {
         const nouvelleSpecialisation = await this.specialisationService.addSpecialisation(this.specialisation);
         const closeButton = document.querySelector('[data-bs-dismiss="modal"]') as HTMLElement;
         if (closeButton) closeButton.click();
         this.specialisationAdded.emit(nouvelleSpecialisation);
-        this.specialisation = { name: '', collegeId: '', instituteId: '' };
+        this.specialisation = { name: '', collegeId: null, instituteId: null };
       } catch (error) {
         console.error("Erreur lors de l'ajout de la spécialisation:", error);
         alert("Erreur lors de l'ajout de la spécialisation. Veuillez réessayer.");

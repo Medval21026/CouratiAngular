@@ -25,7 +25,6 @@ export class LoginComponent {
 
     try {
       const data = await this.authService.login(this.email, this.password);
-      console.log('Login successful:', data);
       this.router.navigate(['/university']);
     } catch (error) {
       this.errorMessage = 'Email ou mot de passe incorrect';

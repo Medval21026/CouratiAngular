@@ -33,13 +33,13 @@ export class ModifierSpecialisationComponent implements OnInit {
 
   loadColleges() {
     this.collegeService.getAllColleges().then(data => {
-      this.colleges = data;
+      this.colleges = [{ id: null, name: 'Aucun' }, ...data];
     }).catch(err => console.error('Erreur lors du chargement des collèges', err));
   }
 
   loadInstitutes() {
     this.instituteService.getAllInstitutes().then(data => {
-      this.institutes = data;
+      this.institutes = [{ id: null, name: 'Aucun' }, ...data];
     }).catch(err => console.error('Erreur lors du chargement des instituts', err));
   }
 

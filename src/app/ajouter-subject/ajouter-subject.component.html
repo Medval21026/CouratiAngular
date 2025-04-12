@@ -1,1 +1,97 @@
-<p>ajouter-subject works!</p>
+<div class="container1">
+  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSubjectModal">
+    Ajouter une Matière
+  </button>
+
+  <div class="modal fade" id="addSubjectModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle">Ajouter une Matière</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form #addSubjectForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="name" class="form-label">Nom de la Matière</label>
+              <input 
+                type="text" 
+                id="name" 
+                class="form-control" 
+                [(ngModel)]="subject.name" 
+                name="name" 
+                required
+                #name="ngModel">
+            </div>
+            
+            <div class="mb-3">
+              <label for="specialization" class="form-label">Spécialisation</label>
+              <ng-select 
+                id="specialization"
+                class="form-control"
+                [items]="specialisations"
+                bindLabel="name"
+                bindValue="id"
+                [(ngModel)]="subject.specializationId"
+                name="specializationId"
+                placeholder="Sélectionnez une spécialisation"
+                #specialization="ngModel">
+                <ng-option [value]="null">Aucun</ng-option>
+              </ng-select>
+            </div>
+            
+            <div class="mb-3">
+              <label for="semester" class="form-label">Semestre</label>
+              <ng-select 
+                id="semester"
+                class="form-control"
+                [items]="semesters"
+                bindLabel="semesterNumber"
+                bindValue="id"
+                [(ngModel)]="subject.semesterId"
+                name="semesterId"
+                placeholder="Sélectionnez un semestre"
+                required
+                #semester="ngModel">
+              </ng-select>
+            </div>
+
+            <!-- Ajouter College -->
+            <div class="mb-3">
+              <label for="college" class="form-label">Collège</label>
+              <ng-select 
+                id="college"
+                class="form-control"
+                [items]="colleges"
+                bindLabel="name"
+                bindValue="id"
+                [(ngModel)]="subject.collegeId"
+                name="collegeId"
+                placeholder="Sélectionnez un collège"
+
+                #college="ngModel">
+              </ng-select>
+            </div>
+
+            <!-- Ajouter Institute -->
+            <div class="mb-3">
+              <label for="institute" class="form-label">Institut</label>
+              <ng-select 
+                id="institute"
+                class="form-control"
+                [items]="institutes"
+                bindLabel="name"
+                bindValue="id"
+                [(ngModel)]="subject.instituteId"
+                name="instituteId"
+                placeholder="Sélectionnez un institut"
+                #institute="ngModel">
+              </ng-select>
+            </div>
+            <button type="submit" class="btn btn-success" [disabled]="addSubjectForm.invalid">Ajouter</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

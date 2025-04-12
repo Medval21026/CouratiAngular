@@ -1,1 +1,90 @@
-<p>modifier-subject works!</p>
+<div class="modal fade" id="modifySubjectModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle">Modifier la Matière</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onUpdate()">
+          <div class="mb-3">
+            <label for="name" class="form-label">Nom de la Matière</label>
+            <input 
+              type="text" 
+              id="name" 
+              class="form-control" 
+              [(ngModel)]="subject.name" 
+              name="name" 
+              required>
+          </div>
+
+          <div class="mb-3">
+            <label for="specialization" class="form-label">Spécialisation</label>
+            <ng-select 
+              id="specialization"
+              class="form-control"
+              [items]="specialisations"
+              bindLabel="name"
+              bindValue="id"
+              [(ngModel)]="subject.specializationId"
+              name="specializationId"
+              placeholder="Sélectionnez une spécialisation"
+              required>
+            </ng-select>
+          </div>
+
+          <div class="mb-3">
+            <label for="semester" class="form-label">Semestre</label>
+            <ng-select 
+              id="semester"
+              class="form-control"
+              [items]="semesters"
+              bindLabel="semesterNumber"
+              bindValue="id"
+              [(ngModel)]="subject.semesterId"
+              name="semesterId"
+              placeholder="Sélectionnez un semestre"
+              required>
+            </ng-select>
+          </div>
+
+          <!-- Ajouter College -->
+          <div class="mb-3">
+            <label for="college" class="form-label">Collège</label>
+            <ng-select 
+              id="college"
+              class="form-control"
+              [items]="colleges"
+              bindLabel="name"
+              bindValue="id"
+              [(ngModel)]="subject.collegeId"
+              name="collegeId"
+              placeholder="Sélectionnez un collège"
+              >
+              <ng-option [value]="null">Aucun</ng-option>
+            </ng-select>
+          </div>
+
+          <!-- Ajouter Institute -->
+          <div class="mb-3">
+            <label for="institute" class="form-label">Institut</label>
+            <ng-select 
+              id="institute"
+              class="form-control"
+              [items]="institutes"
+              bindLabel="name"
+              bindValue="id"
+              [(ngModel)]="subject.instituteId"
+              name="instituteId"
+              placeholder="Sélectionnez un institut"
+              >
+              <ng-option [value]="null">Aucun</ng-option>
+            </ng-select>
+          </div>
+
+          <button type="submit" class="btn btn-success">Modifier</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
