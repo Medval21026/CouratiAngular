@@ -1,0 +1,39 @@
+<ajouter-examen (examenAdded)="loadExamens()"></ajouter-examen>
+<div class="containere1">
+  <h2>Liste des Examens</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th>Titre</th>
+          <th>Contenu</th>
+          <th>Matière</th>
+          <th>Année</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let examen of examens">
+          <td>{{ examen.title }}</td>
+          <td>{{ examen.content }}</td>
+          <td>{{ examen.subjectName }}</td>
+          <td>{{ examen.year }}</td>
+          <td>
+            <button
+              class="btn btn-warning btn-sm mr-4"
+              (click)="openModal(examen)"
+              data-bs-toggle="modal"
+              data-bs-target="#editExamenModal"
+            >
+              Modifier
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteExamen(examen.id)">
+              Supprimer
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<modifier-examen *ngIf="selectedExamen" [examen]="selectedExamen" (examenUpdated)="onExamenUpdated()"></modifier-examen>

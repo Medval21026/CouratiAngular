@@ -17,7 +17,7 @@ import { NgForm } from '@angular/forms';  // Importer InstitutService
   styleUrls: ['./ajouter-subject.component.css']
 })
 export class AjouterSubjectComponent implements OnInit {
-  @ViewChild('addSubjectForm') addSubjectForm!: NgForm; 
+  @ViewChild('addSubjectForm') addSubjectForm!: NgForm;
   subject = { name: '', specializationId: null, semesterId: '', collegeId: null, instituteId: null };
   specialisations: any[] = [];
   semesters: any[] = [];
