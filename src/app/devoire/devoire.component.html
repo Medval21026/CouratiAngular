@@ -1,0 +1,46 @@
+<ajouter-devoire (devoirAdded)="loadDevoirs()"></ajouter-devoire>
+
+
+<div class="containere1">
+  <h2>Liste des Devoirs</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th>Titre</th>
+          <th>Contenu</th>
+          <th>Matière</th>
+          <th>Année</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let devoir of devoirs">
+          <td>{{ devoir.title }}</td>
+          <td>{{ devoir.content }}</td>
+          <td>{{ devoir.subjectName }}</td>
+          <td>{{ devoir.year }}</td>
+          <td>
+            <button
+              class="btn btn-warning btn-sm mr-4"
+              (click)="openModal(devoir)"
+              data-bs-toggle="modal"
+              data-bs-target="#editDevoirModal"
+            >
+              Modifier
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteDevoir(devoir.id)">
+              Supprimer
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<modifier-devoire
+  *ngIf="selectedDevoir"
+  [devoir]="selectedDevoir"
+  (devoirUpdated)="onDevoirUpdated()"
+></modifier-devoire>

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AjouterExamenComponent } from './ajouter-examen.component';
+import { ModifierTdComponent } from './modifier-td.component';
 
-describe('AjouterExamenComponent', () => {
-  let component: AjouterExamenComponent;
-  let fixture: ComponentFixture<AjouterExamenComponent>;
+describe('ModifierTdComponent', () => {
+  let component: ModifierTdComponent;
+  let fixture: ComponentFixture<ModifierTdComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AjouterExamenComponent]
+      imports: [ModifierTdComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AjouterExamenComponent);
+    fixture = TestBed.createComponent(ModifierTdComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

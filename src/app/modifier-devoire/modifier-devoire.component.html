@@ -1,0 +1,63 @@
+<div class="modal fade" id="modifyDevoirModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle">Modifier le Devoir</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+        </div>
+        <div class="modal-body">
+          <form (submit)="onUpdate()">
+            <div class="mb-3">
+              <label for="title" class="form-label">Titre du Devoir</label>
+              <input
+                type="text"
+                id="title"
+                class="form-control"
+                [(ngModel)]="devoir.title"
+                name="title"
+                required>
+            </div>
+            
+            <div class="mb-3">
+              <label for="subject" class="form-label">Matière</label>
+              <ng-select
+                id="subject"
+                class="form-control"
+                [items]="subjects"
+                bindLabel="name"
+                bindValue="id"
+                [(ngModel)]="devoir.subjectId"
+                name="subjectId"
+                placeholder="Sélectionnez une matière"
+                required>
+              </ng-select>
+            </div>
+            
+            <div class="mb-3">
+              <label for="year" class="form-label">Année du Devoir</label>
+              <input
+                type="number"
+                id="year"
+                class="form-control"
+                [(ngModel)]="devoir.year"
+                name="year"
+                required>
+            </div>
+            
+            <div class="mb-3">
+              <label for="file" class="form-label">Contenu (fichier)</label>
+              <input
+                type="file"
+                id="file"
+                name="file"
+                class="form-control"
+                (change)="onFileSelected($event)">
+            </div>
+  
+            <button type="submit" class="btn btn-success">Modifier</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

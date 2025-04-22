@@ -1,0 +1,74 @@
+<div class="container1">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTpModal">
+      Ajouter un TP
+    </button>
+  
+    <div class="modal fade" id="addTpModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle">Ajouter un TP</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+          </div>
+          <div class="modal-body">
+            <form #addTpForm="ngForm" (ngSubmit)="onSubmit()">
+              <div class="mb-3">
+                <label for="title" class="form-label">Titre du TP</label>
+                <input
+                  type="text"
+                  id="title"
+                  class="form-control"
+                  [(ngModel)]="tp.title"
+                  name="title"
+                  required
+                  #title="ngModel">
+              </div>
+  
+              <div class="mb-3">
+                <label for="subject" class="form-label">Matière</label>
+                <ng-select
+                  id="subject"
+                  [items]="subjects"
+                  bindLabel="name"
+                  bindValue="id"
+                  [(ngModel)]="tp.subjectId"
+                  name="subjectId"
+                  placeholder="Sélectionnez une matière"
+                  required
+                  #subject="ngModel">
+                </ng-select>
+              </div>
+  
+              <div class="mb-3">
+                <label for="year" class="form-label">Année du TP</label>
+                <input
+                  type="number"
+                  id="year"
+                  class="form-control"
+                  [(ngModel)]="tp.year"
+                  name="year"
+                  required
+                  #year="ngModel">
+              </div>
+  
+              <div class="mb-3">
+                <label for="file" class="form-label">Contenu (fichier)</label>
+                <input
+                  type="file"
+                  id="file"
+                  name="file"
+                  class="form-control"
+                  required
+                  (change)="onFileSelected($event)">
+              </div>
+  
+              <button type="submit" class="btn btn-success" [disabled]="addTpForm.invalid">
+                Ajouter
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
