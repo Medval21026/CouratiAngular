@@ -9,13 +9,13 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./ajouter-university.component.css']
 })
 export class AjouterUniversityComponent {
-  university = { name: '' };
+  university = { name_fr: '' , name_ar: ''};
   @Output() universityAdded = new EventEmitter<any>();  // Émettre l'université ajoutée
 
   constructor(private universityService: UniversityService) {}
 
   onSubmit() {
-    if (this.university.name.trim() !== '') {
+    if (this.university.name_fr.trim() !== '' && this.university.name_ar) {
       this.universityService.addUniversity(this.university)
         .then(response => {
           const closeButton = document.querySelector('[data-bs-dismiss="modal"]') as HTMLElement;
@@ -23,7 +23,9 @@ export class AjouterUniversityComponent {
             (closeButton as HTMLButtonElement).click();
           }
           this.universityAdded.emit(response);
-          this.university.name = '';
+          this.university.name_fr = '';
+          this.university.name_ar = '';
+
         })
         .catch(error => {
           console.error('Erreur:', error);

@@ -10,12 +10,12 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./ajouter-institut.component.css']
 })
 export class AjouterInstitutComponent {
-  institute = { name: '' };
+  institute = { name_fr: '',name_ar: '' };
   @Output() instituteAdded = new EventEmitter<any>();
 
   constructor(private institutService: InstitutService) {}
   async onSubmit() {
-    if (this.institute.name.trim() !== '') {
+    if (this.institute.name_fr.trim() !== '' && this.institute.name_ar) {
       try {
         const newInstitute = await this.institutService.createInstitute(this.institute);
         const closeButton = document.querySelector('[data-bs-dismiss="modal"]') as HTMLElement;
@@ -23,7 +23,6 @@ export class AjouterInstitutComponent {
           (closeButton as HTMLButtonElement).click();
         }
         this.instituteAdded.emit(newInstitute);
-        this.institute.name = '';
       } catch (error) {
         console.error('Erreur:', error);
         alert('Erreur lors de l\'ajout de l\'institut');

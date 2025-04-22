@@ -52,4 +52,8 @@ export class AppComponent {
   isActive(element: string): boolean {
     return this.activeElement === element; // Vérifie si l'élément est actif
   }
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/']);
+}
 }

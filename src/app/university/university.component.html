@@ -10,13 +10,15 @@
     <table class="table table-bordered ">
       <thead class="thead-dark">
         <tr>
-          <th>Nom</th>
+          <th>Nom Francais</th>
+          <th>Nom Arabe</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let university of universities">
-          <td>{{ university.name }}</td>
+          <td>{{ university.name_fr }}</td>
+          <td>{{ university.name_ar }}</td>
           <td>
             <button class="btn btn-warning btn-sm mr-4" (click)="openModal(university)">Modifier</button>
             <button class="btn btn-danger btn-sm" (click)="deleteUniversity(university.id)">Supprimer</button>

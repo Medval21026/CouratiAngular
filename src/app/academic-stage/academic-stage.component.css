@@ -1,0 +1,28 @@
+.containere1{
+    width: 100%;
+    /* background-color: aqua; */
+    height: 72vh;  
+    padding:20px 20px 0 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+}
+.containere1::-webkit-scrollbar {
+    width: 1px;
+}
+.containere1::-webkit-scrollbar-thumb {
+    background-color: #fff;
+}
+.containere1::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    color: #fff;
+    background-color: black;
+}
+.containere1{
+    overflow-y: scroll;
+}

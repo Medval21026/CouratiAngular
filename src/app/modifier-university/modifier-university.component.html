@@ -9,7 +9,11 @@
         <form (ngSubmit)="updateUniversity()">
           <div class="mb-3">
             <label class="form-label">Nom de l'Université</label>
-            <input type="text" id="university" class="form-control" [(ngModel)]="university.name" name="name" required>
+            <input type="text" id="university" class="form-control" [(ngModel)]="university.name_fr" name="name_fr" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Nom de l'Université</label>
+            <input type="text" id="university" class="form-control" [(ngModel)]="university.name_ar" name="name_ar" required>
           </div>
           <button type="submit" class="btn btn-success" >Enregistrer</button>
         </form>

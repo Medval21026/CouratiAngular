@@ -13,7 +13,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
   styleUrls: ['./ajouter-college.component.css'],
 })
 export class AjouterCollegeComponent implements OnInit {
-  college = { name: '', universityId: '' as number | '' }; // ou utiliser une assertion de type ici
+  college = { name_fr: '',name_ar: '', universityId: '' as number | '' }; // ou utiliser une assertion de type ici
   universities: any[] = [];
   @Output() collegeAdded = new EventEmitter<any>();
 
@@ -33,7 +33,7 @@ export class AjouterCollegeComponent implements OnInit {
   }
 
   async onSubmit() {
-    if (this.college.name.trim() !== '' && this.college.universityId != null) {
+    if (this.college.name_fr.trim() !== '' &&this.college.name_ar && this.college.universityId != null) {
       try {
         const newCollege = await this.collegeService.createCollege(this.college);
         const closeButton = document.querySelector('[data-bs-dismiss="modal"]') as HTMLElement;
@@ -41,7 +41,8 @@ export class AjouterCollegeComponent implements OnInit {
           (closeButton as HTMLButtonElement).click();
         }
         this.collegeAdded.emit(newCollege);
-        this.college.name = '';
+        this.college.name_fr = '';
+        this.college.name_ar = '';
         this.college.universityId = '';
       } catch (error) {
         console.error('Erreur lors de l\'ajout du collège:', error);

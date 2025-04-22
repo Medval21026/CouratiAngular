@@ -9,6 +9,8 @@ import { authGuard } from './auth.guard';
 import { SemestreComponent } from './semestre/semestre.component';
 import { LessonsComponent } from './lessons/lessons.component';
 import { ExamenComponent } from './examen/examen.component';
+import { AcademicStageComponent } from './academic-stage/academic-stage.component';
+import { HomeComponent } from './home/home.component';
 export const routes: Routes = [
   { path: '', component: LoginComponent, data: { showNavbar: false } },
   { path: 'university', component: UniversityComponent, canActivate: [authGuard], data: { showNavbar: true } },
@@ -18,6 +20,8 @@ export const routes: Routes = [
   { path: 'lesson', component: LessonsComponent, canActivate: [authGuard], data: { showNavbar: true } },
   { path: 'institut', component: InstitutComponent, canActivate: [authGuard], data: { showNavbar: true } },
   { path: 'semestre', component: SemestreComponent, canActivate: [authGuard], data: { showNavbar: true } },
+  { path: 'academic', component: AcademicStageComponent, canActivate: [authGuard], data: { showNavbar: true } },
+  { path: 'home', component: HomeComponent, canActivate: [authGuard], data: { showNavbar: true } },
   { path: 'specialisation', component: SpecialisationComponent, canActivate: [authGuard], data: { showNavbar: true } },
 ];
 

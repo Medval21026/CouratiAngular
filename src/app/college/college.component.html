@@ -5,15 +5,19 @@
     <table class="table table-bordered">
       <thead class="thead-dark">
         <tr>
-          <th>Nom</th>
-          <th>Nom University</th>
+          <th>Nom Fr</th>
+          <th>Nom Ar</th>
+          <th>Nom University Fr</th>
+          <th>Nom University Ar</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let college of colleges">
-          <td>{{ college.name }}</td>
-          <td>{{ college.universityName }}</td>
+          <td>{{ college.name_fr }}</td>
+          <td>{{ college.name_ar }}</td>
+          <td>{{ college.universityName_fr }}</td>
+          <td>{{ college.universityName_ar }}</td>
           <td>
             <button class="btn btn-warning btn-sm mr-4" (click)="openModal(college)" data-bs-toggle="modal" data-bs-target="#editCollegeModal">
               Modifier
