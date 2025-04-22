@@ -18,7 +18,7 @@ export class ModifierUniversityComponent {
 
   updateUniversity() {
     if (this.university) {
-      this.universityService.updateUniversity(this.university.id, { name: this.university.name })
+      this.universityService.updateUniversity(this.university.id, { name_fr: this.university.name_fr , name_ar: this.university.name_ar })
         .then(() => {
           this.universityUpdated.emit();
         })

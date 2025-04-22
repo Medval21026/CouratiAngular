@@ -5,13 +5,16 @@
     <table class="table table-bordered ">
       <thead class="thead-dark">
         <tr>
-          <th>Nom</th>
+          <th>Nom Fr</th>
+          <th>Nom Ar</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let institute of institutes">
-          <td>{{ institute.name }}</td>
+          <td>{{ institute.name_fr }}</td>
+          <td>{{ institute.name_ar }}</td>
+
           <td>
             <button class="btn btn-warning btn-sm mr-4" (click)="openModal(institute)" data-bs-toggle="modal" data-bs-target="#editInstitutModal">
               Modifier

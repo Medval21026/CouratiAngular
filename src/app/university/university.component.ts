@@ -28,6 +28,7 @@ export class UniversityComponent {
   loadUniversities() {
     this.universityService.getAllUniversities().then(data => {
       this.universities = data;
+      console.log(data);
     }).catch(error => console.error(error));
   }
 

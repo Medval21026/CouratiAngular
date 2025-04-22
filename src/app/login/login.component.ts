@@ -25,10 +25,9 @@ export class LoginComponent {
 
     try {
       const data = await this.authService.login(this.email, this.password);
-      this.router.navigate(['/university']);
+      this.router.navigate(['/home']);
     } catch (error) {
       this.errorMessage = 'Email ou mot de passe incorrect';
-    }
-  }
+    }
+  }
 }
-

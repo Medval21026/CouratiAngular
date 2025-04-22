@@ -24,7 +24,7 @@ export class UniversityService {
         throw error;
       });
   }
-  addUniversity(university: { name: string }) {
+  addUniversity(university: { name_fr: string,name_ar: string }) {
     return fetch(this.ADD_UNIVERSITY_URL, {
       method: 'POST',
       headers: {
