@@ -15,8 +15,10 @@
         <tr *ngFor="let lesson of lessons">
           <td>{{ lesson.title }}</td>
           <td>
-            {{ lesson.content}}  
-          </td>
+            <a [href]="getFichierUrl(lesson.content)" target="_blank">
+              Ouvrir le fichier
+            </a>
+            </td>
           <td>{{ lesson.subjectName }}</td>
           <td>
             <button class="btn btn-warning btn-sm mr-4" (click)="openModal(lesson)" data-bs-toggle="modal" data-bs-target="#editLessonModal">

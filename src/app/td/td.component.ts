@@ -74,4 +74,8 @@ export class TdComponent implements OnInit {
   tdAdded(newTd: any) {
     this.tds = [...this.tds, newTd];
   }
+  getFichierUrl(tds: string): string {
+    const content = tds.split('/').pop(); // Récupère juste le nom du fichier
+    return `http://localhost:8077/uploads/tps/${content}`;
+  }
 }

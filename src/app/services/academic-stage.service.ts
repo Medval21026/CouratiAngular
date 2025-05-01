@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class AcademicStageService {
 
-  private baseUrl = 'http://localhost:8079/academic-stages';
+  private baseUrl = 'http://localhost:8077/academic-stages';
 
   constructor() { }
 

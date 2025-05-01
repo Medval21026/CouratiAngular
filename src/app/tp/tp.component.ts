@@ -73,4 +73,8 @@ export class TpComponent implements OnInit {
   tpAdded(newTp: any) {
     this.tps = [...this.tps, newTp];
   }
+  getFichierUrl(tps: string): string {
+    const content = tps.split('/').pop(); // Récupère juste le nom du fichier
+    return `http://localhost:8077/uploads/tps/${content}`;
+  }
 }

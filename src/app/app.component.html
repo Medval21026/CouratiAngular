@@ -3,9 +3,9 @@
         <div class="navbare">
         <div class="logo">ArcHivi</div>
         <div class="elements" [ngClass]="{'expanded': showSubjects}">
-            <a routerLink="/home" class="university" *ngIf="showCollege"(click)="setActive($event, 'home')" [ngClass]="{'active': isActive('home')}">Home</a>
+            <a routerLink="/home" class="university" (click)="setActive($event, 'home')" [ngClass]="{'active': isActive('home')}">Home</a>
             <a routerLink="/university" class="university" (click)="toggleCollege($event); setActive($event, 'university')" [ngClass]="{'active': isActive('university')}">University</a>
-            <a routerLink="/college" class="college" *ngIf="showCollege"(click)="setActive($event, 'college')" [ngClass]="{'active': isActive('college')}">College</a>
+            <a routerLink="/college" class="college" *ngIf="showCollege"(click)="setActive($event, 'college')" [ngClass]="{'active': isActive('college')}">Faculter</a>
             <a routerLink="/institut" class="university" (click)="setActive($event, 'institut')" [ngClass]="{'active': isActive('institut')}">Institut</a>
             <a routerLink="/semestre" class="university" (click)="setActive($event, 'semestre')" [ngClass]="{'active': isActive('semestre')}">Semestre</a>
             <a routerLink="/subject" class="university" (click)="toggleSubjects($event); setActive($event, 'subject')" [ngClass]="{'active': isActive('subject')}">Subject</a>

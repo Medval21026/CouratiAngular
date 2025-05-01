@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class InstitutService {
-  private baseUrl = 'http://localhost:8079/institutes'; // Remplace par ton URL backend
+  private baseUrl = 'http://localhost:8077/institutes'; // Remplace par ton URL backend
 
   constructor() {}
 

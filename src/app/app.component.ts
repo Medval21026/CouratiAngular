@@ -27,10 +27,10 @@ export class AppComponent {
     });
     if (typeof window !== 'undefined' && window.localStorage) {
       // Récupère l'élément actif depuis le localStorage si disponible
-      this.activeElement = localStorage.getItem('activeElement') || 'university'; // Valeur par défaut 'university'
+      this.activeElement = localStorage.getItem('activeElement') || 'home'; // Valeur par défaut 'university'
     } else {
       // Si localStorage n'est pas disponible (par exemple en SSR), définir une valeur par défaut
-      this.activeElement = 'university';
+      this.activeElement = 'home';
     }
   }
   toggleCollege(event: Event) {

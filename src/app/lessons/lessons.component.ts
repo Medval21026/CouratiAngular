@@ -74,4 +74,8 @@ export class LessonsComponent implements OnInit {
   lessonAdded(newLesson: any) {
     this.lessons = [...this.lessons, newLesson];
   }
+  getFichierUrl(lesson: string): string {
+    const content = lesson.split('/').pop(); // Récupère juste le nom du fichier
+    return `http://localhost:8077/uploads/lessons/${content}`;
+  }
 }

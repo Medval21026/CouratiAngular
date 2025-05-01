@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class CollegeService {
-  private apiUrle = 'http://localhost:8079/colleges'; // URL du backend
+  private apiUrle = 'http://localhost:8077/colleges'; // URL du backend
 
   constructor() {}
   async createCollege(college: any): Promise<any> {

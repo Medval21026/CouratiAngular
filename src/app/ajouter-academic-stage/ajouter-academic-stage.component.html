@@ -36,6 +36,11 @@
                   name="collegeId"
                   placeholder="Sélectionnez un collège"
                   #college="ngModel">
+                  <ng-template let-item="item">
+                    <div class="custom-item">
+                      <span class="item-label">{{ item.name_fr }}</span>
+                    </div>
+                  </ng-template>
                 </ng-select>
               </div>
   
@@ -51,6 +56,11 @@
                   name="instituteId"
                   placeholder="Sélectionnez un institut"
                   #institute="ngModel">
+                  <ng-template let-item="item">
+                    <div class="custom-item">
+                      <span class="item-label">{{ item.name_fr }}</span>
+                    </div>
+                  </ng-template>
                 </ng-select>
               </div>
   

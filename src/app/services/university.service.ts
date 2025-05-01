@@ -5,10 +5,10 @@ import { Injectable } from '@angular/core';
 })
 export class UniversityService {
 
-  private readonly URL_UNIVERSITY = 'http://localhost:8079/universities/tous_universities';
-  private readonly ADD_UNIVERSITY_URL = 'http://localhost:8079/universities/ajouter_university';
-  private readonly apiUrl='http://localhost:8079/universities/modifier'
-  private readonly DELETE_UNIVERSITY_URL = 'http://localhost:8079/universities/supprimer';
+  private readonly URL_UNIVERSITY = 'http://localhost:8077/universities/tous_universities';
+  private readonly ADD_UNIVERSITY_URL = 'http://localhost:8077/universities/ajouter_university';
+  private readonly apiUrl='http://localhost:8077/universities/modifier'
+  private readonly DELETE_UNIVERSITY_URL = 'http://localhost:8077/universities/supprimer';
   constructor() { }
 
   getAllUniversities() {

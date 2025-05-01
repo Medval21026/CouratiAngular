@@ -3,7 +3,10 @@
     display: flex;
     flex-direction: column;
 }
-
+.select-subject{
+    color: black;
+    outline: none;
+}
 .navbare {
     width: 100%;
     height: 11vh;
