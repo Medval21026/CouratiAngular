@@ -9,6 +9,11 @@ import { authGuard } from './auth.guard';
 import { SemestreComponent } from './semestre/semestre.component';
 import { LessonsComponent } from './lessons/lessons.component';
 import { ExamenComponent } from './examen/examen.component';
+import { AcademicStageComponent } from './academic-stage/academic-stage.component';
+import { HomeComponent } from './home/home.component';
+import { DevoirComponent } from './devoire/devoire.component';
+import { TdComponent } from './td/td.component';
+import { TpComponent } from './tp/tp.component';
 export const routes: Routes = [
   { path: '', component: LoginComponent, data: { showNavbar: false } },
   { path: 'university', component: UniversityComponent, canActivate: [authGuard], data: { showNavbar: true } },
