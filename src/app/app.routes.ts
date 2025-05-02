@@ -16,19 +16,19 @@ import { TdComponent } from './td/td.component';
 import { TpComponent } from './tp/tp.component';
 export const routes: Routes = [
   { path: '', component: LoginComponent, data: { showNavbar: false } },
-  { path: 'university', component: UniversityComponent,  data: { showNavbar: true } },
-  { path: 'subject', component: SubjectComponent,  data: { showNavbar: true } },
-  { path: 'examen', component: ExamenComponent,  data: { showNavbar: true } },
-  { path: 'college', component: CollegeComponent,  data: { showNavbar: true } },
-  { path: 'lesson', component: LessonsComponent,  data: { showNavbar: true } },
-  { path: 'institut', component: InstitutComponent,  data: { showNavbar: true } },
-  { path: 'semestre', component: SemestreComponent,  data: { showNavbar: true } },
-  { path: 'academic', component: AcademicStageComponent,  data: { showNavbar: true } },
+  { path: 'university', component: UniversityComponent, canActivate: [authGuard], data: { showNavbar: true } },
+  { path: 'subject', component: SubjectComponent, canActivate: [authGuard], data: { showNavbar: true } },
+  { path: 'examen', component: ExamenComponent, canActivate: [authGuard], data: { showNavbar: true } },
+  { path: 'college', component: CollegeComponent, canActivate: [authGuard], data: { showNavbar: true } },
+  { path: 'lesson', component: LessonsComponent, canActivate: [authGuard], data: { showNavbar: true } },
+  { path: 'institut', component: InstitutComponent, canActivate: [authGuard], data: { showNavbar: true } },
+  { path: 'semestre', component: SemestreComponent, canActivate: [authGuard], data: { showNavbar: true } },
+  { path: 'academic', component: AcademicStageComponent, canActivate: [authGuard], data: { showNavbar: true } },
   { path: 'home', component: HomeComponent, canActivate: [authGuard], data: { showNavbar: true } },
-  { path: 'specialisation', component: SpecialisationComponent,  data: { showNavbar: true } },
-  { path: 'devoire', component: DevoirComponent,  data: { showNavbar: true } },
-  { path: 'td', component: TdComponent,  data: { showNavbar: true } },
-  { path: 'tp', component: TpComponent,  data: { showNavbar: true } },
+  { path: 'specialisation', component: SpecialisationComponent, canActivate: [authGuard], data: { showNavbar: true } },
+  { path: 'devoire', component: DevoirComponent, canActivate: [authGuard], data: { showNavbar: true } },
+  { path: 'td', component: TdComponent, canActivate: [authGuard], data: { showNavbar: true } },
+  { path: 'tp', component: TpComponent, canActivate: [authGuard], data: { showNavbar: true } },
 
 ];
 
