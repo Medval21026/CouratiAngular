@@ -24,7 +24,7 @@ export const routes: Routes = [
   { path: 'institut', component: InstitutComponent,  data: { showNavbar: true } },
   { path: 'semestre', component: SemestreComponent,  data: { showNavbar: true } },
   { path: 'academic', component: AcademicStageComponent,  data: { showNavbar: true } },
-  { path: 'home', component: HomeComponent,  data: { showNavbar: true } },
+  { path: 'home', component: HomeComponent, canActivate: [authGuard], data: { showNavbar: true } },
   { path: 'specialisation', component: SpecialisationComponent,  data: { showNavbar: true } },
   { path: 'devoire', component: DevoirComponent,  data: { showNavbar: true } },
   { path: 'td', component: TdComponent,  data: { showNavbar: true } },
