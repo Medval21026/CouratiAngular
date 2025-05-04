@@ -15,7 +15,11 @@
       <tbody>
         <tr *ngFor="let td of tds">
           <td>{{ td.title }}</td>
-          <td>{{ td.content }}</td>
+          <td>
+            <a [href]="getFichierUrl(td.content)" target="_blank">
+              Ouvrir le fichier
+            </a>
+            </td>
           <td>{{ td.subjectName }}</td>
           <td>{{ td.year }}</td>
           <td>

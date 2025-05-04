@@ -37,6 +37,11 @@
                   required
                   #subject="ngModel">
                 </ng-select>
+                <ng-template let-item="item">
+                  <div class="custom-item">
+                    <span class="item-label">{{ item.name_fr }}</span>
+                  </div>
+                </ng-template>
               </div>
   
               <div class="mb-3">

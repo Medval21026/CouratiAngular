@@ -23,7 +23,6 @@
                   required
                   #title="ngModel">
               </div>
-  
               <div class="mb-3">
                 <label for="subject" class="form-label">Matière</label>
                 <ng-select
@@ -36,6 +35,11 @@
                   placeholder="Sélectionnez une matière"
                   required
                   #subject="ngModel">
+                  <ng-template let-item="item">
+                    <div class="custom-item">
+                      <span class="item-label">{{ item.name_fr }}</span>
+                    </div>
+                  </ng-template>
                 </ng-select>
               </div>
   

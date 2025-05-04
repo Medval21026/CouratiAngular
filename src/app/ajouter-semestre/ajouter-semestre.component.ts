@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit,ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SemestreService } from '../services/semestre.service';
 import { AcademicStageService } from '../services/academic-stage.service';
@@ -10,7 +10,8 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [FormsModule, CommonModule, NgSelectModule],
   templateUrl: './ajouter-semestre.component.html',
-  styleUrls: ['./ajouter-semestre.component.css']
+  styleUrls: ['./ajouter-semestre.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AjouterSemestreComponent implements OnInit {
   semestre = { semesterNumber: '', academicStageId: null };

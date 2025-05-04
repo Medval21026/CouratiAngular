@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class TpService {
 
-  private apiUrl = 'http://localhost:8079/api/tps'; // URL de l'API des TPs
+  private apiUrl = 'http://localhost:8077/api/tps'; // URL de l'API des TPs
 
   constructor() { }
 

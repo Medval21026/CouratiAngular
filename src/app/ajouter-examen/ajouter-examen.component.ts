@@ -38,7 +38,7 @@ export class AjouterExamenComponent implements OnInit {
           year:this.examen.year,
           content: this.examen.content
         };
-
+        console.log(newExamen);
         const addedExamen = await this.examenService.createExamen(newExamen);
 
         const closeButton = document.querySelector('[data-bs-dismiss="modal"]') as HTMLElement;

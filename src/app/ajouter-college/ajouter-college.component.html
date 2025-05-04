@@ -45,6 +45,11 @@
                   placeholder="Sélectionnez une université"
                   required
                   #university="ngModel">
+                  <ng-template let-item="item">
+                    <div class="custom-item">
+                      <span class="item-label">{{ item.name_fr }}</span>
+                    </div>
+                  </ng-template>
                 </ng-select>
               </div>              
               <button type="submit" class="btn btn-success" [disabled]="addCollegeForm.invalid">Ajouter</button>

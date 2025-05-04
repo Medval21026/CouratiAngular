@@ -17,7 +17,11 @@
       <tbody>
         <tr *ngFor="let devoir of devoirs">
           <td>{{ devoir.title }}</td>
-          <td>{{ devoir.content }}</td>
+          <td>
+            <a [href]="getFichierUrl(devoir.content)" target="_blank">
+              Ouvrir le fichier
+            </a>
+            </td>
           <td>{{ devoir.subjectName }}</td>
           <td>{{ devoir.year }}</td>
           <td>

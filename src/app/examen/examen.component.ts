@@ -73,4 +73,8 @@ export class ExamenComponent implements OnInit {
   examenAdded(newExamen: any) {
     this.examens = [...this.examens, newExamen];
   }
+  getFichierUrl(examen: string): string {
+    const content = examen.split('/').pop(); // Récupère juste le nom du fichier
+    return `http://localhost:8077/uploads/examens/${content}`;
+  }
 }

@@ -15,7 +15,11 @@
       <tbody>
         <tr *ngFor="let examen of examens">
           <td>{{ examen.title }}</td>
-          <td>{{ examen.content }}</td>
+          <td>
+            <a [href]="getFichierUrl(examen.content)" target="_blank">
+              Ouvrir le fichier
+            </a>
+            </td>
           <td>{{ examen.subjectName }}</td>
           <td>{{ examen.year }}</td>
           <td>

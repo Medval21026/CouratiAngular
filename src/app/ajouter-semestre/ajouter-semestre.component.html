@@ -16,22 +16,31 @@
               <label for="semesterNumber" class="form-label">Nom du Semestre</label>
               <input type="number" id="semesterNumber" class="form-control" [(ngModel)]="semestre.semesterNumber" name="semesterNumber" required min="1">
             </div>
-
             <div class="mb-3">
-              <label for="academicStage" class="form-label">Stage Académique</label>
-              <ng-select
-                id="academicStage"
-                class="form-control"
-                [items]="academicStages"
-                bindLabel="name"
-                bindValue="id"
-                [(ngModel)]="semestre.academicStageId"
-                name="academicStageId"
-                placeholder="Sélectionnez un stage académique"
-                required>
-                <ng-option [value]="null">Aucun</ng-option>
-              </ng-select>
-            </div>
+
+<ng-select
+  id="academicStage"
+  class="form-control custom-select"
+  [items]="academicStages"
+  bindLabel="name"
+  bindValue="id"
+  [(ngModel)]="semestre.academicStageId"
+  name="academicStageId"
+  placeholder="Sélectionnez un stage académique"
+  input-lg
+  required>
+  
+  <!-- Template personnalisé pour chaque item -->
+  <ng-template let-item="item">
+    <div class="custom-item">
+      <span class="item-label">{{ item.name }}</span>
+    </div>
+  </ng-template>
+  
+  
+</ng-select>
+</div>
+
 
             <button type="submit" class="btn btn-success" [disabled]="addSemestreForm.invalid">Ajouter</button>
           </form>

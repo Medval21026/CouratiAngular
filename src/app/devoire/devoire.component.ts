@@ -75,4 +75,8 @@ export class DevoirComponent implements OnInit {
   devoirAdded(newDevoir: any) {
     this.devoirs = [...this.devoirs, newDevoir];
   }
+  getFichierUrl(devoir: string): string {
+    const content = devoir.split('/').pop(); // Récupère juste le nom du fichier
+    return `http://localhost:8077/uploads/devoirs/${content}`;
+  }
 }

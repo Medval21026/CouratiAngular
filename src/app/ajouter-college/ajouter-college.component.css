@@ -2,13 +2,3 @@
     margin-left: 1%;
     margin-top: 3%;
 }
-::ng-deep .ng-select .ng-dropdown-panel {
-    max-height: 300px; /* Limite la hauteur de la liste déroulante */
-    overflow-y: auto; /* Ajoute le scroll vertical */
-  }
-  
-  ::ng-deep .ng-select .ng-dropdown-item {
-    height: 40px; /* Taille constante des éléments */
-    line-height: 40px; /* Centrer le texte verticalement */
-  }
-  
