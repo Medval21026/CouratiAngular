@@ -38,4 +38,11 @@ export class InstitutService {
   async deleteInstitut(id: number): Promise<void> {
     await fetch(`${this.baseUrl}/suprimer/${id}`, { method: 'DELETE' });
   }
+  async getTotalInstitutes(): Promise<number> {
+    const response = await fetch(`${this.baseUrl}/total`);
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+    return response.json();
+  }
 }

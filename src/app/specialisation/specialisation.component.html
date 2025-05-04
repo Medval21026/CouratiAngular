@@ -15,8 +15,8 @@
       <tbody>
         <tr *ngFor="let specialisation of specialisations">
           <td>{{ specialisation.name }}</td>
-          <td>{{ specialisation.collegeName }}</td>
-          <td>{{ specialisation.instituteName }}</td>
+          <td>{{ specialisation.collegeName || '—' }}</td>
+          <td>{{ specialisation.instituteName || '—' }}</td>
           <td>
             <button class="btn btn-warning btn-sm mr-4" (click)="openModal(specialisation)" data-bs-toggle="modal" data-bs-target="#modifySpecialisationModal">
               Modifier
@@ -26,6 +26,7 @@
             </button>
           </td>
         </tr>
+        
       </tbody>
     </table>
   </div>

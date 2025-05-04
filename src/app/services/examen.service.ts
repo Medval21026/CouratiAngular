@@ -70,4 +70,13 @@ export class ExamenService {
       throw new Error('Erreur lors de la suppression de l\'examen');
     }
   }
+
+  async getTotalExamens(): Promise<number> {
+    const response = await fetch(`${this.apiUrl}/total`);
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+    return response.json();
+  }
+  
 }

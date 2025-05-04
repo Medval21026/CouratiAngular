@@ -60,4 +60,12 @@ export class SubjectService {
       throw new Error('Erreur lors de la suppression du sujet');
     }
   }
+  async getTotalSubjects(): Promise<number> {
+    const response = await fetch(`${this.baseUrl}/total`);
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+    return response.json();
+  }
+  
 }

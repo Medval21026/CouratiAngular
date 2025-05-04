@@ -1,1 +1,116 @@
-<p>home works!</p>
+<h1 class="ml-4 mt-3">Statistique des Nombers</h1>
+<div class="continer">
+    <div class="statis">
+        <p>Nombre Total de Univercity</p>
+        <h4>
+            <i class="bi bi-building"></i> {{ totalUniversities }}
+        </h4>
+    </div>    
+    <div class="statis">
+        <p>Nombre Total de Instituts</p>
+        <h4>
+          <i class="fas fa-school"></i> {{ totalInstituts }}
+        </h4>
+      </div>
+      <div class="statis">
+        <p>Nombre total de Matières</p>
+        <h4>
+            <i class="fas fa-book-open"></i>
+            {{ totalSubjects }}
+        </h4>
+    </div>
+    <div class="statis">
+        <p>Nombre Total de Leçons</p>
+        <h4>
+            <i class="fas fa-chalkboard-teacher"></i>
+            {{ totalLessons }}
+        </h4>
+    </div>
+    
+    <div class="statis">
+        <p>Nombre total de Tps</p>
+        <h4>
+            <i class="fas fa-flask"></i>
+            {{ totalTPs }}
+        </h4>
+    </div>
+    
+    <div class="statis">
+        <p>Nombre total de Tds</p>
+        <h4>
+            <i class="fas fa-chalkboard"></i>
+            {{ totalTDs }}
+        </h4>
+    </div>
+    
+    <div class="statis">
+        <p>Nombre total de Devoirs</p>
+        <h4>
+            <i class="fas fa-file-alt"></i>
+            {{ totalDevoirs }}
+        </h4>
+    </div>
+    
+    <div class="statis">
+        <p>Nombre total d'Examens</p>
+        <h4>
+            <i class="fas fa-file-alt"></i>
+            {{ totalExamens }}
+        </h4>
+    </div>
+    
+    <div class="statis">
+        <p>Nombre total de Collèges</p>
+        <h4>
+            <i class="fas fa-school"></i>
+            {{ totalColleges }}
+        </h4>
+    </div>
+    
+    <div class="statis">
+        <p>Nombre Total de Spécialités</p>
+        <h4>
+            <i class="fas fa-user-graduate"></i>
+            {{ totalSpecialisations }}
+        </h4>
+    </div>
+</div><br>
+
+<hr class="ml-4 mr-4 ">
+<h1 class="ml-4">Statistique des Univercity Par Colleges</h1>
+<div class="continer1" *ngIf="collegeData">
+    <div class="statis_uni" *ngFor="let item of collegeData">
+        <p>{{ item.universityName }}</p>
+        <h4>
+            <i class="fas fa-school"></i>
+            {{ item.collegeCount }}
+        </h4>
+    </div>
+</div>
+<hr class="ml-4 mr-4 ">
+<h1 class="ml-4">Statistique des colleges Par Specialitées</h1>
+<div class="continer1" *ngIf="collegeData">
+    <div class="statis_uni" *ngFor="let item of collegeData">
+        <p>{{ item.universityName }}</p>
+        <h4>
+            <i class="fas fa-school"></i>
+            {{ item.collegeCount }}
+        </h4>
+    </div>
+</div>
+<hr class="ml-4 mr-4 ">
+<h1 class="ml-4">Statistique des Instituts Par Specialitées</h1>
+<div class="continer1" *ngIf="collegeData">
+    <div class="statis_uni" *ngFor="let item of collegeData">
+        <p>{{ item.universityName }}</p>
+        <h4>
+            <i class="fas fa-school"></i>
+            {{ item.collegeCount }}
+        </h4>
+    </div>
+</div>
+<hr class="ml-4 mr-4 ">
+<h1 class="ml-4">Statistique des Bars</h1>
+<div class="continer1">
+    
+</div>

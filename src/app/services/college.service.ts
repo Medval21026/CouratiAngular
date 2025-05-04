@@ -31,7 +31,18 @@ export class CollegeService {
     });
     return response.json();
   }
-
+  async getCountByUniversity(): Promise<any> {
+    try {
+      const response = await fetch(`${this.apiUrle}/count-by-university`);
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP: ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Erreur lors de la récupération des données:', error);
+      throw error;
+    }
+  }
   // 🔹 Supprimer un collège
   async deleteCollege(id: number): Promise<void> {
     await fetch(`${this.apiUrle}/supprimer/${id}`, { method: 'DELETE' });
@@ -42,4 +53,12 @@ export class CollegeService {
     const response = await fetch(this.apiUrle);
     return response.json();
   }
+  async getTotalColleges(): Promise<number> {
+    const response = await fetch(`${this.apiUrle}/total`);
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+    return response.json();
+  }
+  
 }

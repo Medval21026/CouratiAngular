@@ -16,6 +16,14 @@ export class LessonsService {
     }
     return await response.json();
   }
+  async getTotalLessons(): Promise<number> {
+    const response = await fetch(`${this.apiUrl}/total`);
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+    return response.json();
+  }
+  
   async createLesson(lesson: any): Promise<any> {
     const formData = new FormData();
     formData.append('title', lesson.title);

@@ -5,14 +5,12 @@ import { Injectable } from '@angular/core';
 })
 export class UniversityService {
 
-  private readonly URL_UNIVERSITY = 'http://localhost:8077/universities/tous_universities';
-  private readonly ADD_UNIVERSITY_URL = 'http://localhost:8077/universities/ajouter_university';
-  private readonly apiUrl='http://localhost:8077/universities/modifier'
-  private readonly DELETE_UNIVERSITY_URL = 'http://localhost:8077/universities/supprimer';
+  private readonly BASE_URL = 'http://localhost:8077/universities';
+
   constructor() { }
 
   getAllUniversities() {
-    return fetch(this.URL_UNIVERSITY)
+    return fetch(`${this.BASE_URL}/tous_universities`)
       .then(response => {
         if (!response.ok) {
           throw new Error(`Erreur HTTP: ${response.status}`);
@@ -24,8 +22,9 @@ export class UniversityService {
         throw error;
       });
   }
-  addUniversity(university: { name_fr: string,name_ar: string }) {
-    return fetch(this.ADD_UNIVERSITY_URL, {
+
+  addUniversity(university: { name_fr: string, name_ar: string }) {
+    return fetch(`${this.BASE_URL}/ajouter_university`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -43,8 +42,9 @@ export class UniversityService {
       throw error;
     });
   }
+
   updateUniversity(id: number, updatedData: any) {
-    return fetch(`${this.apiUrl}/${id}`, {
+    return fetch(`${this.BASE_URL}/modifier/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updatedData)
@@ -60,21 +60,34 @@ export class UniversityService {
       throw error;
     });
   }
+
   deleteUniversity(id: number) {
-    return fetch(`${this.DELETE_UNIVERSITY_URL}/${id}`, {
+    return fetch(`${this.BASE_URL}/supprimer/${id}`, {
       method: 'DELETE'
     })
     .then(response => {
       if (!response.ok) {
         throw new Error('Erreur lors de la suppression');
       }
-      return response.text().then(text => text ? JSON.parse(text) : {}); // Vérifie si la réponse est vide
+      return response.text().then(text => text ? JSON.parse(text) : {});
     })
     .catch(error => {
       console.error('Erreur lors de la suppression de l\'université:', error);
       throw error;
     });
   }
-  
-}
 
+  getTotalUniversities() {
+    return fetch(`${this.BASE_URL}/total`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Erreur HTTP: ${response.status}`);
+        }
+        return response.json();
+      })
+      .catch(error => {
+        console.error('Erreur lors de la récupération du total des universités:', error);
+        throw error;
+      });
+  }
+}

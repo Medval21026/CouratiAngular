@@ -17,9 +17,9 @@
       <tbody>
         <tr *ngFor="let subject of subjects">
           <td>{{ subject.name }}</td>
-          <td>{{ subject.specialisationName }}</td>
-          <td>{{ subject.collegeName }}</td>
-          <td>{{ subject.instituteName }}</td>
+          <td>{{ subject.specialisationName || '—' }}</td>
+          <td>{{ subject.collegeName || '—' }}</td>
+          <td>{{ subject.instituteName || '—' }}</td>
           <td>{{ subject.semesterNumber }}</td>
           <td>
             <button class="btn btn-warning btn-sm mr-4" (click)="openModal(subject)" data-bs-toggle="modal" data-bs-target="#modifySubjectModal">

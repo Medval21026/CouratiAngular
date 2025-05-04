@@ -51,6 +51,13 @@ export class SpecialisationService {
       throw new Error(`Erreur lors de la suppression: ${response.statusText}`);
     }
   }
+  async getTotalSpecialisations(): Promise<number> {
+    const response = await fetch(`${this.apiUrl}/total`);
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+    return response.json();
+  }
 
   // 🔹 Récupérer toutes les spécialisations (GET)
   async getAllSpecialisations(): Promise<any[]> {

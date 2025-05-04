@@ -33,6 +33,7 @@
 }
 .content{
     width: 100%;
+    height: 89vh;
     flex-direction: column;
     display: flex;
     overflow: scroll;

@@ -70,4 +70,13 @@ export class TpService {
       throw new Error('Erreur lors de la suppression du TP');
     }
   }
+
+  async getTotalTPs(): Promise<number> {
+    const response = await fetch(`${this.apiUrl}/total`);
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+    return response.json();
+  }
+  
 }
