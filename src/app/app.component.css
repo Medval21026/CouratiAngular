@@ -25,6 +25,7 @@
 .elements{
     width: 60%;
     display: flex;
+    padding-right: 3%;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
@@ -100,4 +101,5 @@
 
 .elements.expanded {
     width: 70%;
+    /* background-color: #888; */
 }

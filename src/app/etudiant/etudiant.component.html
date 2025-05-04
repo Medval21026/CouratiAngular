@@ -1,0 +1,41 @@
+
+
+
+<div class="containere1">
+  <div>
+    <input type="number" [(ngModel)]="numeroTel" placeholder="Votre numéro Tel" class="input-lg">
+    <input type="submit" class="btn btn-danger ml-1" value="Subscript" (click)="activerSubscription()"> 
+  </div>
+  <h2>Liste des Étudiants</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th>Nom</th>
+          <th>Numéro de téléphone</th>
+          <th>Inscrit</th>
+          <th>Password</th>
+          <th>Subscribe</th>
+          <th>Date_debut</th>
+          <th>Date_fin</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let e of etudiants">
+          <td>{{ e.nom }}</td>
+          <td>{{ e.numeroTel }}</td>
+          <td>{{ e.subscript ? 'Oui' : 'Non' }}</td>
+          <td>{{ e.password }}</td>
+          <td>{{ e.subscript }}</td>
+          <td>{{ e.dateDebut }}</td>
+          <td>{{ e.dateFin }}</td>
+          <td><button class="btn btn-danger btn-sm"  (click)="deleteEtudiant(e.id)">
+            Supprimer
+          </button></td>
+        </tr>
+      </tbody>
+    </table>
+    
+  </div>
+</div>

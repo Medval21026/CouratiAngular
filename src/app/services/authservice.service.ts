@@ -4,13 +4,13 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthserviceService {
-  private apiUrl = 'http://localhost:8079/auth/login'; // URL de ton API
+  private baseUrl = 'http://localhost:8077/auth'; // Base de l’API
 
   constructor() { }
 
   async login(email: string, password: string): Promise<any> {
     try {
-      const response = await fetch(this.apiUrl, {
+      const response = await fetch(`${this.baseUrl}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -22,7 +22,6 @@ export class AuthserviceService {
         throw new Error(responseBody.message || "Erreur inconnue");
       }
 
-      // 🔐 Stocker le token dans le localStorage
       if (responseBody.token) {
         localStorage.setItem('token', responseBody.token);
       }
@@ -30,6 +29,74 @@ export class AuthserviceService {
       return responseBody;
     } catch (error) {
       console.error('Erreur Fetch:', error);
+      throw error;
+    }
+  }
+
+  async getAllEtudiants(): Promise<any[]> {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await fetch(this.baseUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token ? `Bearer ${token}` : ''
+        }
+      });
+
+      const responseBody = await response.json();
+
+      if (!response.ok) {
+        throw new Error(responseBody.message || "Erreur lors de la récupération des étudiants");
+      }
+
+      return responseBody;
+    } catch (error) {
+      console.error('Erreur lors de la récupération des étudiants:', error);
+      throw error;
+    }
+  }
+
+  async activerSubscription(numeroTel: number): Promise<any> {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await fetch(`${this.baseUrl}/activer-subscription/${numeroTel}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token ? `Bearer ${token}` : ''
+        }
+      });
+
+      const responseBody = await response.json();
+
+      if (!response.ok) {
+        throw new Error(responseBody.message || "Erreur lors de l'activation de l'abonnement");
+      }
+
+      return responseBody;
+    } catch (error) {
+      console.error('Erreur lors de l’activation de l’abonnement :', error);
+      throw error;
+    }
+  }
+
+  async supprimerEtudiant(id: number): Promise<void> {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await fetch(`${this.baseUrl}/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': token ? `Bearer ${token}` : ''
+        }
+      });
+
+      if (!response.ok) {
+        const responseBody = await response.json();
+        throw new Error(responseBody.message || "Erreur lors de la suppression");
+      }
+    } catch (error) {
+      console.error('Erreur lors de la suppression de l’étudiant :', error);
       throw error;
     }
   }

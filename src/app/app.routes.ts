@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { DevoirComponent } from './devoire/devoire.component';
 import { TdComponent } from './td/td.component';
 import { TpComponent } from './tp/tp.component';
+import { EtudiantComponent } from './etudiant/etudiant.component';
 export const routes: Routes = [
   { path: '', component: LoginComponent, data: { showNavbar: false } },
   { path: 'university', component: UniversityComponent, canActivate: [authGuard], data: { showNavbar: true } },
@@ -28,6 +29,7 @@ export const routes: Routes = [
   { path: 'specialisation', component: SpecialisationComponent, canActivate: [authGuard], data: { showNavbar: true } },
   { path: 'devoire', component: DevoirComponent, canActivate: [authGuard], data: { showNavbar: true } },
   { path: 'td', component: TdComponent, canActivate: [authGuard], data: { showNavbar: true } },
+  { path: 'etudiant', component: EtudiantComponent, canActivate: [authGuard], data: { showNavbar: true } },
   { path: 'tp', component: TpComponent, canActivate: [authGuard], data: { showNavbar: true } },
 
 ];
