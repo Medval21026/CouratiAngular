@@ -7,8 +7,7 @@
         <tr>
           <th>Nom Fr</th>
           <th>Nom Ar</th>
-          <th>Nom University Fr</th>
-          <th>Nom University Ar</th>
+          <th>Nom University</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -17,7 +16,6 @@
           <td>{{ college.name_fr }}</td>
           <td>{{ college.name_ar }}</td>
           <td>{{ college.universityName_fr }}</td>
-          <td>{{ college.universityName_ar }}</td>
           <td>
             <button class="btn btn-warning btn-sm mr-4" (click)="openModal(college)" data-bs-toggle="modal" data-bs-target="#editCollegeModal">
               Modifier
