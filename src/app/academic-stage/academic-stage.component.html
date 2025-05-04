@@ -14,8 +14,8 @@
       <tbody>
         <tr *ngFor="let stage of academicStages">
           <td>{{ stage.name }}</td>
-          <td>{{ stage.collegeName }}</td>
-          <td>{{ stage.instituteName }}</td>
+          <td>{{ stage.collegeName ||'—'}}</td>
+          <td>{{ stage.instituteName || '—' }}</td>
           <td>
             <button class="btn btn-warning btn-sm mr-4" (click)="openModal(stage)" data-bs-toggle="modal" data-bs-target="#modifyAcademicStageModal">
               Modifier

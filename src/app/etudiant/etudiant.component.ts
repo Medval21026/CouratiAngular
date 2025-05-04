@@ -51,12 +51,11 @@ export class EtudiantComponent implements OnInit {
     }
   }
   async activerSubscription() {
-    this.loadEtudiants();
     if (this.numeroTel) {
       try {
         const response = await this.authService.activerSubscription(this.numeroTel);
         console.log('Abonnement activé', response);
-        // Tu peux ici mettre à jour l'affichage des étudiants ou afficher un message de succès
+        await this.loadEtudiants(); // 🟢 Recharger après succès
       } catch (error) {
         console.error('Erreur lors de l’activation de l’abonnement', error);
       }
@@ -64,6 +63,5 @@ export class EtudiantComponent implements OnInit {
       console.error('Numéro de téléphone invalide');
     }
   }
-  
 }
 

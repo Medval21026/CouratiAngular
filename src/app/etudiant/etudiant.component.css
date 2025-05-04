@@ -26,11 +26,32 @@ th {
 .containere1{
     overflow-y: scroll;
 }
-input{
-    width: 20%;
-    height: 40px;
+.subscription-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.subscription-container input[type="number"] {
+    width: 250px;
+    height: 45px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding-left: 12px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.subscription-container input[type="number"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
     outline: none;
-    border: 1px solid silver;
-    border-radius: 10px;
-    padding-left: 10px;
+}
+
+.subscription-container input[type="submit"] {
+    height: 45px;
+    font-size: 16px;
+    border-radius: 8px;
+    padding: 0 20px;
 }
