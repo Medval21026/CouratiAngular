@@ -51,6 +51,7 @@ export class SpecialisationService {
       throw new Error(`Erreur lors de la suppression: ${response.statusText}`);
     }
   }
+  
   async getTotalSpecialisations(): Promise<number> {
     const response = await fetch(`${this.apiUrl}/total`);
     if (!response.ok) {
@@ -78,4 +79,23 @@ export class SpecialisationService {
 
     return response.json();
   }
+  async getSpecializationsCountByCollege(): Promise<any[]> {
+    const response = await fetch(`${this.apiUrl}/count-by-college`);
+    
+    if (!response.ok) {
+      throw new Error(`Erreur lors de la récupération des comptages: ${response.statusText}`);
+    }
+    
+    return response.json();
+  }
+  async getSpecializationsCountByInstitute(): Promise<any[]> {
+    const response = await fetch(`${this.apiUrl}/count-by-institute`);
+    
+    if (!response.ok) {
+        throw new Error(`Erreur lors de la récupération des comptages: ${response.statusText}`);
+    }
+    
+    return response.json();
+}
+
 }

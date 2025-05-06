@@ -1,4 +1,12 @@
-<app-ajouter-subject (subjectAdded)="loadSubjects()"></app-ajouter-subject>
+
+  <app-ajouter-subject (subjectAdded)="subjectAdded($event)"></app-ajouter-subject>
+
+  <input 
+    type="text" 
+    [(ngModel)]="searchTerm" 
+    (ngModelChange)="filterSubjects()" 
+    placeholder="Rechercher par nom de matière" 
+    class="form-control w-50 ml-4 mt-2 mb-2">
 
 <div class="containere1">
   <h2>Liste des Matières</h2>
@@ -15,17 +23,21 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let subject of subjects">
+        <tr *ngFor="let subject of filteredSubjects">
           <td>{{ subject.name }}</td>
           <td>{{ subject.specialisationName || '—' }}</td>
           <td>{{ subject.collegeName || '—' }}</td>
           <td>{{ subject.instituteName || '—' }}</td>
           <td>{{ subject.semesterNumber }}</td>
           <td>
-            <button class="btn btn-warning btn-sm mr-4" (click)="openModal(subject)" data-bs-toggle="modal" data-bs-target="#modifySubjectModal">
+            <button class="btn btn-warning btn-sm mr-4" 
+                    (click)="openModal(subject)" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#modifySubjectModal">
               Modifier
             </button>
-            <button class="btn btn-danger btn-sm" (click)="deleteSubject(subject.id)">
+            <button class="btn btn-danger btn-sm" 
+                    (click)="deleteSubject(subject.id)">
               Supprimer
             </button>
           </td>

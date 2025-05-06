@@ -26,3 +26,23 @@ th {
 .containere1{
     overflow-y: scroll;
 }
+
+.filter {
+    width: 100%;
+    margin: 2% auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0 2rem;
+  }
+  
+  .filter app-ajouter-subject {
+    flex-shrink: 0;
+  }
+  
+  .filter input {
+    flex: 1;
+    max-width: 300px;
+  }
+  

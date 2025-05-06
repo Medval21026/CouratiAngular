@@ -12,38 +12,9 @@
               <input type="text" id="name" class="form-control" [(ngModel)]="academicStage.name" name="name" required>
             </div>
   
-            <div class="mb-3">
-              <label for="college" class="form-label">Collège</label>
-              <ng-select 
-                id="college"
-                class="form-control"
-                [items]="colleges"
-                bindLabel="name_fr"
-                bindValue="id"
-                [(ngModel)]="academicStage.collegeId"
-                name="collegeId"
-                placeholder="Sélectionnez un collège"
-                required>
-                <ng-option [value]="null">Aucun</ng-option>
-              </ng-select>
-            </div>
+           
   
-            <div class="mb-3">
-              <label for="institute" class="form-label">Institut</label>
-              <ng-select 
-                id="institute"
-                class="form-control"
-                [items]="institutes"
-                bindLabel="name_fr"
-                bindValue="id"
-                [(ngModel)]="academicStage.instituteId"
-                name="instituteId"
-                placeholder="Sélectionnez un institut"
-                required>
-                <ng-option [value]="null">Aucun</ng-option>
-              </ng-select>
-            </div>
-  
+          
             <button type="submit" class="btn btn-success">Modifier</button>
           </form>
         </div>
