@@ -3,6 +3,7 @@
     /* background-color: aqua; */
     height: 72vh;  
     padding:20px 20px 0 20px;
+    margin-top: 80px;
     display: flex;
     flex-direction: column;
     overflow: scroll;

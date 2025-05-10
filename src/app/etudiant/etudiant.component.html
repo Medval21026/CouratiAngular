@@ -1,11 +1,17 @@
-
-
-
 <div class="containere1">
   <div class="subscription-container">
-    <input type="number" [(ngModel)]="numeroTel" placeholder="Votre numéro de téléphone">
-    <input type="submit" class="btn btn-danger" value="Souscrire" (click)="activerSubscription()"> 
-  </div>  
+    <input 
+      type="number" 
+      [(ngModel)]="numeroTel" 
+      placeholder="Votre numéro de téléphone" 
+      (ngModelChange)="filterByPhoneNumber()">
+    <input 
+      type="submit" 
+      class="btn btn-danger" 
+      value="Souscrire" 
+      (click)="activerSubscription()"> 
+  </div>   
+
   <h2>Liste des Étudiants</h2>
   <div class="table-responsive">
     <table class="table table-bordered">
@@ -13,7 +19,6 @@
         <tr>
           <th>Nom</th>
           <th>Numéro de téléphone</th>
-          <th>Password</th>
           <th>Subscribe</th>
           <th>Date_debut</th>
           <th>Date_fin</th>
@@ -21,19 +26,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let e of etudiants">
+        <tr *ngFor="let e of filteredEtudiants">
           <td>{{ e.nom }}</td>
           <td>{{ e.numeroTel }}</td>
-          <td>{{ e.password }}</td>
           <td>{{ e.subscript }}</td>
           <td>{{ e.dateDebut }}</td>
           <td>{{ e.dateFin }}</td>
-          <td><button class="btn btn-danger btn-sm"  (click)="deleteEtudiant(e.id)">
+          <td><button class="btn btn-danger btn-sm" (click)="deleteEtudiant(e.id)">
             Supprimer
           </button></td>
         </tr>
       </tbody>
     </table>
-    
   </div>
 </div>

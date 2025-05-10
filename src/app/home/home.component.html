@@ -1,3 +1,7 @@
+
+<div class="force">
+
+
 <h1 class="ml-4 mt-3">Statistique des Nombers</h1>
 <div class="continer">
     <div class="statis">
@@ -89,28 +93,31 @@
 </div>
 <hr class="ml-4 mr-4 ">
 <h1 class="ml-4">Statistique des colleges Par Specialitées</h1>
-<div class="continer1" *ngIf="collegeData">
-    <div class="statis_uni" *ngFor="let item of collegeData">
-        <p>{{ item.universityName }}</p>
+<div class="continer1" *ngIf="specializationCountByCollege">
+    <div class="statis_uni" *ngFor="let item of specializationCountByCollege">
+        <p>{{ item.collegeName  }}</p>
         <h4>
             <i class="fas fa-school"></i>
-            {{ item.collegeCount }}
+            {{ item.specializationCount  }}
         </h4>
     </div>
 </div>
 <hr class="ml-4 mr-4 ">
 <h1 class="ml-4">Statistique des Instituts Par Specialitées</h1>
-<div class="continer1" *ngIf="collegeData">
-    <div class="statis_uni" *ngFor="let item of collegeData">
-        <p>{{ item.universityName }}</p>
+<div class="continer1" *ngIf="specializationCountByInstitute">
+    <div class="statis_uni" *ngFor="let item of specializationCountByInstitute">
+        <p>{{ item.instituteName }}</p>
         <h4>
             <i class="fas fa-school"></i>
-            {{ item.collegeCount }}
+            {{ item.specializationCount }}
         </h4>
     </div>
 </div>
 <hr class="ml-4 mr-4 ">
 <h1 class="ml-4">Statistique des Bars</h1>
 <div class="continer1">
-    
+    <canvas id="canvasCollege" width="400" height="200"></canvas>
+    <canvas id="canvasInstitute" width="400" height="200"></canvas>  
+</div>
+
 </div>
