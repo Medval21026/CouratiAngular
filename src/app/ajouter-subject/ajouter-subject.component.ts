@@ -18,7 +18,15 @@ import { NgForm } from '@angular/forms';  // Importer InstitutService
 })
 export class AjouterSubjectComponent implements OnInit {
   @ViewChild('addSubjectForm') addSubjectForm!: NgForm;
-  subject = { name: '', specializationId: null, semesterId: '', collegeId: null, instituteId: null };
+  subject = {
+  name: '',
+  specializationId: null,
+  semesterId: '',
+  collegeId: null,
+  instituteId: null,
+  year: null          // ✅ Ajout du champ year
+};
+
   specialisations: any[] = [];
   semesters: any[] = [];
   colleges: any[] = [];  // Ajouter un tableau pour les colleges
@@ -57,7 +65,7 @@ export class AjouterSubjectComponent implements OnInit {
         if (closeButton) closeButton.click();
         this.subjectAdded.emit(nouveauSubject);
         // Réinitialisation du sujet après ajout
-        this.subject = { name: '', specializationId: null, semesterId: '', collegeId: null, instituteId: null };
+        this.subject = { name: '', specializationId: null, semesterId: '', collegeId: null, instituteId: null ,year:null};
       } catch (error) {
         console.error("Erreur lors de l'ajout du sujet:", error);
         alert("Erreur lors de l'ajout du sujet. Veuillez réessayer.");
