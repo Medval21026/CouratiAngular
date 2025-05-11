@@ -1,19 +1,21 @@
 import { Component, Inject, PLATFORM_ID, OnInit, ChangeDetectorRef } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
-import { SpecialisationService } from '../services/specialisation.service'; // ✅ Service avec "s"
-import { AjouterSpecialisationComponent } from '../ajouter-specialisation/ajouter-specialisation.component'; // ✅ avec "s"
+import { SpecialisationService } from '../services/specialisation.service';
+import { AjouterSpecialisationComponent } from '../ajouter-specialisation/ajouter-specialisation.component';
 import { ModifierSpecialisationComponent } from '../modifier-specialisation/modifier-specialisation.component';
+import { FormsModule } from '@angular/forms';  // Importer FormsModule pour ngModel
 
 @Component({
   selector: 'app-specialisation',
   standalone: true,
-  imports: [AjouterSpecialisationComponent,ModifierSpecialisationComponent, CommonModule],
+  imports: [AjouterSpecialisationComponent, ModifierSpecialisationComponent, CommonModule, FormsModule],
   templateUrl: './specialisation.component.html',
   styleUrls: ['./specialisation.component.css']
 })
 export class SpecialisationComponent implements OnInit {
   specialisations: any[] = [];
   selectedSpecialisation: any = null;
+  searchTerm: string = '';  // Champ de recherche
 
   constructor(
     private specialisationService: SpecialisationService,
@@ -29,6 +31,15 @@ export class SpecialisationComponent implements OnInit {
     this.specialisationService.getAllSpecialisations().then((data: any[]) => {
       this.specialisations = data;
     }).catch((error: any) => console.error('Erreur lors du chargement des spécialisations:', error));
+  }
+
+  get filteredSpecialisations() {
+    const term = this.searchTerm.toLowerCase();
+    return this.specialisations.filter(specialisation =>
+      specialisation.name?.toLowerCase().includes(term) ||  // Filtrage par nom
+      specialisation.collegeName?.toLowerCase().includes(term) ||  // Filtrage par collège
+      specialisation.instituteName?.toLowerCase().includes(term)  // Filtrage par institut
+    );
   }
 
   openModal(specialisation: any) {
@@ -47,7 +58,6 @@ export class SpecialisationComponent implements OnInit {
       }, 0);
     }
   }
-  
 
   onSpecialisationUpdated() {
     this.loadSpecialisations();
@@ -55,14 +65,13 @@ export class SpecialisationComponent implements OnInit {
     const modalElement = document.getElementById('modifySpecialisationModal');
     document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
     if (modalElement) {
-        import('bootstrap').then((bootstrap) => {
+      import('bootstrap').then((bootstrap) => {
         const modal = bootstrap.Modal.getInstance(modalElement);
-    if (modal) {
-      modal.hide();
+        if (modal) {
+          modal.hide();
+        }
+      }).catch(err => console.error('Erreur lors de la fermeture de la modal:', err));
     }
-  }).catch(err => console.error('Erreur lors de la fermeture de la modal:', err));
-}
-
   }
 
   deleteSpecialisation(id: number) {
@@ -79,5 +88,4 @@ export class SpecialisationComponent implements OnInit {
     this.specialisations = [...this.specialisations, newSpecialisation];
     this.loadSpecialisations();
   }
-  
 }

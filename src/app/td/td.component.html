@@ -1,6 +1,18 @@
 <ajouter-td (tdAdded)="loadTds()"></ajouter-td>
+
 <div class="containere1">
   <h2>Liste des TDs</h2>
+
+  <!-- Champ de recherche -->
+  <div class="mb-3">
+    <input
+      type="text"
+      class="form-control w-50 mb-3 mt-2"
+      placeholder="Rechercher par titre ou matière..."
+      [(ngModel)]="searchTerm"
+    />
+  </div>
+
   <div class="table-responsive">
     <table class="table table-bordered">
       <thead class="thead-dark">
@@ -13,13 +25,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let td of tds">
+        <tr *ngFor="let td of filteredTds">
           <td>{{ td.title }}</td>
           <td>
             <a [href]="getFichierUrl(td.content)" target="_blank">
               Ouvrir le fichier
             </a>
-            </td>
+          </td>
           <td>{{ td.subjectName }}</td>
           <td>{{ td.year }}</td>
           <td>
@@ -42,7 +54,7 @@
 </div>
 
 <modifier-td
-*ngIf="selectedTd" 
-[td]="selectedTd" 
-(tdUpdated)="onTdUpdated()">
-</modifier-td>
+  *ngIf="selectedTd"
+  [td]="selectedTd"
+  (tdUpdated)="onTdUpdated()"
+></modifier-td>

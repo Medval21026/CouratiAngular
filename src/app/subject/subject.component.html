@@ -1,15 +1,13 @@
 
   <app-ajouter-subject (subjectAdded)="subjectAdded($event)"></app-ajouter-subject>
-
+<div class="containere1">
+  <h2>Liste des Matières</h2>
   <input 
     type="text" 
     [(ngModel)]="searchTerm" 
     (ngModelChange)="filterSubjects()" 
     placeholder="Rechercher par nom de matière" 
     class="form-control w-50 ml-4 mt-2 mb-2">
-
-<div class="containere1">
-  <h2>Liste des Matières</h2>
   <div class="table-responsive">
     <table class="table table-bordered">
       <thead class="thead-dark">

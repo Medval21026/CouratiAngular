@@ -1,6 +1,18 @@
 <ajouter-tp (tpAdded)="loadTps()"></ajouter-tp>
+
 <div class="containere1">
   <h2>Liste des TPs</h2>
+
+  <!-- Champ de recherche -->
+  <div class="mb-3">
+    <input
+      type="text"
+      class="form-control w-50 mb-3 mt-2"
+      placeholder="Rechercher par titre ou matière..."
+      [(ngModel)]="searchTerm"
+    />
+  </div>
+
   <div class="table-responsive">
     <table class="table table-bordered">
       <thead class="thead-dark">
@@ -13,12 +25,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let tp of tps">
+        <tr *ngFor="let tp of filteredTps">
           <td>{{ tp.title }}</td>
           <td>
-          <a [href]="getFichierUrl(tp.content)" target="_blank">
-            Ouvrir le fichier
-          </a>
+            <a [href]="getFichierUrl(tp.content)" target="_blank">
+              Ouvrir le fichier
+            </a>
           </td>
           <td>{{ tp.subjectName }}</td>
           <td>{{ tp.year }}</td>
@@ -41,4 +53,8 @@
   </div>
 </div>
 
-<modifier-tp *ngIf="selectedTp" [tp]="selectedTp" (tpUpdated)="onTpUpdated()"></modifier-tp>
+<modifier-tp
+  *ngIf="selectedTp"
+  [tp]="selectedTp"
+  (tpUpdated)="onTpUpdated()"
+></modifier-tp>

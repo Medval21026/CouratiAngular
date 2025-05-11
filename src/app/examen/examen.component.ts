@@ -1,5 +1,6 @@
 import { Component, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ExamenService } from '../services/examen.service';
 import { AjouterExamenComponent } from '../ajouter-examen/ajouter-examen.component';
 import { ModifierExamenComponent } from '../modifier-examen/modifier-examen.component';
@@ -9,11 +10,12 @@ import { ModifierExamenComponent } from '../modifier-examen/modifier-examen.comp
   standalone: true,
   templateUrl: './examen.component.html',
   styleUrls: ['./examen.component.css'],
-  imports: [CommonModule, AjouterExamenComponent, ModifierExamenComponent],
+  imports: [CommonModule, FormsModule, AjouterExamenComponent, ModifierExamenComponent],
 })
 export class ExamenComponent implements OnInit {
   examens: any[] = [];
   selectedExamen: any = null;
+  searchTerm: string = '';
 
   constructor(
     private examenService: ExamenService,
@@ -28,6 +30,15 @@ export class ExamenComponent implements OnInit {
     this.examenService.getAllExamens().then(data => {
       this.examens = data;
     }).catch(error => console.error('Erreur lors du chargement des examens:', error));
+  }
+
+  get filteredExamens(): any[] {
+    const term = this.searchTerm.toLowerCase();
+    return this.examens.filter(examen =>
+      examen.title?.toLowerCase().includes(term) ||
+      examen.subjectName?.toLowerCase().includes(term) ||
+      String(examen.year).includes(term)
+    );
   }
 
   openModal(examen: any) {
@@ -73,8 +84,9 @@ export class ExamenComponent implements OnInit {
   examenAdded(newExamen: any) {
     this.examens = [...this.examens, newExamen];
   }
+
   getFichierUrl(examen: string): string {
-    const content = examen.split('/').pop(); // Récupère juste le nom du fichier
+    const content = examen.split('/').pop();
     return `http://localhost:8077/uploads/examens/${content}`;
   }
 }

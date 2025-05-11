@@ -1,6 +1,16 @@
-<ajouter-lesson (lessonAdded)="loadLessons()"></ajouter-lesson>
+<ajouter-lesson (lessonAdded)="lessonAdded($event)"></ajouter-lesson>
+
 <div class="containere1">
   <h2>Liste des Leçons</h2>
+
+  <input
+    type="text"
+    [(ngModel)]="searchTerm"
+    (ngModelChange)="filterLessons()"
+    class="form-control w-50 mb-3 mt-2"
+    placeholder="Rechercher par titre de leçon"
+  />
+
   <div class="table-responsive">
     <table class="table table-bordered">
       <thead class="thead-dark">
@@ -9,25 +19,32 @@
           <th>Contenu</th>
           <th>Matière</th>
           <th>Année</th>
-
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let lesson of lessons">
+        <tr *ngFor="let lesson of filteredLessons">
           <td>{{ lesson.title }}</td>
           <td>
             <a [href]="getFichierUrl(lesson.content)" target="_blank">
               Ouvrir le fichier
             </a>
-            </td>
+          </td>
           <td>{{ lesson.subjectName }}</td>
           <td>{{ lesson.year }}</td>
           <td>
-            <button class="btn btn-warning btn-sm mr-4" (click)="openModal(lesson)" data-bs-toggle="modal" data-bs-target="#editLessonModal">
+            <button
+              class="btn btn-warning btn-sm mr-4"
+              (click)="openModal(lesson)"
+              data-bs-toggle="modal"
+              data-bs-target="#editLessonModal"
+            >
               Modifier
             </button>
-            <button class="btn btn-danger btn-sm" (click)="deleteLesson(lesson.id)">
+            <button
+              class="btn btn-danger btn-sm"
+              (click)="deleteLesson(lesson.id)"
+            >
               Supprimer
             </button>
           </td>
@@ -37,4 +54,8 @@
   </div>
 </div>
 
-<modifier-lesson *ngIf="selectedLesson" [lesson]="selectedLesson" (lessonUpdated)="onLessonUpdated()"></modifier-lesson>
+<modifier-lesson
+  *ngIf="selectedLesson"
+  [lesson]="selectedLesson"
+  (lessonUpdated)="onLessonUpdated()"
+></modifier-lesson>

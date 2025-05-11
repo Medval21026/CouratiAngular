@@ -3,17 +3,19 @@ import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { TpService } from '../services/tp.service';
 import { AjouterTpComponent } from '../ajouter-tp/ajouter-tp.component';
 import { ModifierTpComponent } from '../modifier-tp/modifier-tp.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-tp',
   standalone: true,
   templateUrl: './tp.component.html',
   styleUrls: ['./tp.component.css'],
-  imports: [CommonModule,AjouterTpComponent,ModifierTpComponent],
+  imports: [CommonModule, FormsModule, AjouterTpComponent, ModifierTpComponent],
 })
 export class TpComponent implements OnInit {
   tps: any[] = [];
   selectedTp: any = null;
+  searchTerm: string = '';
 
   constructor(
     private tpService: TpService,
@@ -30,6 +32,14 @@ export class TpComponent implements OnInit {
     }).catch(error => console.error('Erreur lors du chargement des TPs:', error));
   }
 
+  get filteredTps() {
+    const term = this.searchTerm.toLowerCase();
+    return this.tps.filter(tp =>
+      tp.title?.toLowerCase().includes(term) ||
+      tp.subjectName?.toLowerCase().includes(term)
+    );
+  }
+
   openModal(tp: any) {
     if (isPlatformBrowser(this.platformId)) {
       this.selectedTp = { ...tp };
@@ -40,8 +50,6 @@ export class TpComponent implements OnInit {
             const modal = new bootstrap.Modal(modalElement);
             modal.show();
           }).catch(err => console.error('Erreur lors de l\'importation de Bootstrap:', err));
-        } else {
-          console.error('Modal element not found');
         }
       }, 0);
     }
@@ -73,8 +81,9 @@ export class TpComponent implements OnInit {
   tpAdded(newTp: any) {
     this.tps = [...this.tps, newTp];
   }
+
   getFichierUrl(tps: string): string {
-    const content = tps.split('/').pop(); // Récupère juste le nom du fichier
+    const content = tps.split('/').pop();
     return `http://localhost:8077/uploads/tps/${content}`;
   }
 }

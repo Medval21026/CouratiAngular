@@ -3,18 +3,19 @@ import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { TdService } from '../services/td.service';
 import { AjouterTdComponent } from '../ajouter-td/ajouter-td.component';
 import { ModifierTdComponent } from '../modifier-td/modifier-td.component';
-
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-td',
   standalone: true,
   templateUrl: './td.component.html',
   styleUrls: ['./td.component.css'],
-  imports: [CommonModule,AjouterTdComponent,ModifierTdComponent],
+  imports: [CommonModule, FormsModule, AjouterTdComponent, ModifierTdComponent],
 })
 export class TdComponent implements OnInit {
   tds: any[] = [];
   selectedTd: any = null;
+  searchTerm: string = '';
 
   constructor(
     private tdService: TdService,
@@ -31,6 +32,14 @@ export class TdComponent implements OnInit {
     }).catch(error => console.error('Erreur lors du chargement des TDs:', error));
   }
 
+  get filteredTds() {
+    const term = this.searchTerm.toLowerCase();
+    return this.tds.filter(td =>
+      td.title?.toLowerCase().includes(term) ||
+      td.subjectName?.toLowerCase().includes(term)
+    );
+  }
+
   openModal(td: any) {
     if (isPlatformBrowser(this.platformId)) {
       this.selectedTd = { ...td };
@@ -41,8 +50,6 @@ export class TdComponent implements OnInit {
             const modal = new bootstrap.Modal(modalElement);
             modal.show();
           }).catch(err => console.error('Erreur lors de l\'importation de Bootstrap:', err));
-        } else {
-          console.error('Modal element not found');
         }
       }, 0);
     }
@@ -74,6 +81,7 @@ export class TdComponent implements OnInit {
   tdAdded(newTd: any) {
     this.tds = [...this.tds, newTd];
   }
+
   getFichierUrl(tds: string): string {
     const content = tds.split('/').pop(); // Récupère juste le nom du fichier
     return `http://localhost:8077/uploads/tps/${content}`;

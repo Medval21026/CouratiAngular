@@ -1,6 +1,18 @@
 <app-ajouter-college (collegeAdded)="loadColleges()"></app-ajouter-college>
+
 <div class="containere1">
   <h2>Liste des Collèges</h2>
+
+  <!-- Champ de recherche pour filtrer par nom_fr -->
+  <div class="mb-3">
+    <input
+      type="text"
+      class="form-control w-50 mb-3 mt-2"
+      placeholder="Rechercher par nom en français..."
+      [(ngModel)]="searchTerm" 
+    />
+  </div>
+
   <div class="table-responsive">
     <table class="table table-bordered">
       <thead class="thead-dark">
@@ -12,7 +24,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let college of colleges">
+        <tr *ngFor="let college of filteredColleges">
           <td>{{ college.name_fr }}</td>
           <td>{{ college.name_ar }}</td>
           <td>{{ college.universityName_fr }}</td>
@@ -29,4 +41,5 @@
     </table>
   </div>
 </div>
+
 <app-modifier-college *ngIf="selectedCollege" [college]="selectedCollege" (collegeUpdated)="onCollegeUpdated()"></app-modifier-college>

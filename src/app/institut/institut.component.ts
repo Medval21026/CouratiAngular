@@ -1,20 +1,22 @@
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { InstitutService } from '../services/institut.service';
 import { CommonModule } from '@angular/common';
 import { AjouterInstitutComponent } from '../ajouter-institut/ajouter-institut.component';
 import { ModifierInstitutComponent } from '../modifier-institut/modifier-institut.component';
+import { FormsModule } from '@angular/forms';  // Importer FormsModule pour ngModel
 
 @Component({
   selector: 'app-institut',
   templateUrl: './institut.component.html',
   styleUrls: ['./institut.component.css'],
   standalone: true,
-  imports: [CommonModule, AjouterInstitutComponent, ModifierInstitutComponent]
+  imports: [CommonModule, FormsModule, AjouterInstitutComponent, ModifierInstitutComponent]
 })
-export class InstitutComponent {
+export class InstitutComponent implements OnInit {
   institutes: any[] = [];
   selectedInstitut: any = null;
+  searchTerm: string = '';  // Champ de recherche
 
   constructor(
     private institutService: InstitutService,
@@ -29,6 +31,13 @@ export class InstitutComponent {
     this.institutService.getAllInstitutes().then(data => {
       this.institutes = data;
     }).catch(error => console.error(error));
+  }
+
+  get filteredInstitutes() {
+    const term = this.searchTerm.toLowerCase();
+    return this.institutes.filter(institute =>
+      institute.name_fr?.toLowerCase().includes(term)  // Filtrage par nom_fr
+    );
   }
 
   openModal(institut: any) {
@@ -60,7 +69,6 @@ export class InstitutComponent {
       }).catch(err => console.error('Erreur lors de la fermeture de la modal:', err));
     }
   }
-  
 
   deleteInstitut(id: number) {
     if (confirm('Êtes-vous sûr de vouloir supprimer cet institut ?')) {

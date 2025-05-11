@@ -1,20 +1,22 @@
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { CollegeService } from '../services/college.service';
 import { CommonModule } from '@angular/common';
 import { AjouterCollegeComponent } from '../ajouter-college/ajouter-college.component';
 import { ModifierCollegeComponent } from '../modifier-college/modifier-college.component';
+import { FormsModule } from '@angular/forms';  // Importer FormsModule pour ngModel
 
 @Component({
   selector: 'app-college',
   templateUrl: './college.component.html',
   styleUrls: ['./college.component.css'],
   standalone: true,
-  imports: [CommonModule, AjouterCollegeComponent, ModifierCollegeComponent]
+  imports: [CommonModule, FormsModule, AjouterCollegeComponent, ModifierCollegeComponent]
 })
-export class CollegeComponent {
+export class CollegeComponent implements OnInit {
   colleges: any[] = [];
   selectedCollege: any = null;
+  searchTerm: string = '';  // Champ de recherche
 
   constructor(
     private collegeService: CollegeService,
@@ -29,6 +31,13 @@ export class CollegeComponent {
     this.collegeService.getAllColleges().then(data => {
       this.colleges = data;
     }).catch(error => console.error(error));
+  }
+
+  get filteredColleges() {
+    const term = this.searchTerm.toLowerCase();
+    return this.colleges.filter(college =>
+      college.name_fr?.toLowerCase().includes(term)  // Filtrage par nom_fr
+    );
   }
 
   openModal(college: any) {

@@ -1,6 +1,17 @@
 <ajouter-examen (examenAdded)="loadExamens()"></ajouter-examen>
+
 <div class="containere1">
   <h2>Liste des Examens</h2>
+
+  <div class="mb-3">
+    <input
+      type="text"
+      class="form-control w-50 mb-3 mt-2"
+      placeholder="Rechercher un examen..."
+      [(ngModel)]="searchTerm"
+    />
+  </div>
+
   <div class="table-responsive">
     <table class="table table-bordered">
       <thead class="thead-dark">
@@ -13,13 +24,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let examen of examens">
+        <tr *ngFor="let examen of filteredExamens">
           <td>{{ examen.title }}</td>
           <td>
             <a [href]="getFichierUrl(examen.content)" target="_blank">
               Ouvrir le fichier
             </a>
-            </td>
+          </td>
           <td>{{ examen.subjectName }}</td>
           <td>{{ examen.year }}</td>
           <td>
@@ -40,4 +51,9 @@
     </table>
   </div>
 </div>
-<modifier-examen *ngIf="selectedExamen" [examen]="selectedExamen" (examenUpdated)="onExamenUpdated()"></modifier-examen>
+
+<modifier-examen
+  *ngIf="selectedExamen"
+  [examen]="selectedExamen"
+  (examenUpdated)="onExamenUpdated()"
+></modifier-examen>
