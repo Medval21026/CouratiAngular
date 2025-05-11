@@ -33,14 +33,16 @@ export class ModifierLessonsComponent implements OnInit {
     try {
       await this.lessonsService.updateLesson(this.lesson.id, {
         title: this.lesson.title,
+        year: this.lesson.year,  // Assurez-vous que la valeur de "year" est incluse
         subjectId: this.lesson.subjectId,
-        content:this.lesson.content
+        content: this.lesson.content
       });
       this.lessonUpdated.emit();
     } catch (error) {
       console.error('Erreur lors de la mise à jour de la leçon', error);
     }
   }
+
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {

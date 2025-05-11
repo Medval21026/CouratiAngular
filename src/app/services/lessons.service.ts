@@ -27,6 +27,7 @@ export class LessonsService {
   async createLesson(lesson: any): Promise<any> {
     const formData = new FormData();
     formData.append('title', lesson.title);
+    formData.append('year', lesson.year);
     formData.append('subjectId', lesson.subjectId);
     formData.append('file', lesson.content); // Ajoute le fichier ici
   
@@ -47,6 +48,7 @@ export class LessonsService {
   async updateLesson(id: number, lesson: any): Promise<any> {
     const formData = new FormData();
     formData.append('title', lesson.title);
+    formData.append('year', lesson.year);
     formData.append('subjectId', lesson.subjectId);
     if (lesson.content) {
       formData.append('file', lesson.content);  // Ajoute le fichier si présent

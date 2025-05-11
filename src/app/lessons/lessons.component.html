@@ -8,6 +8,8 @@
           <th>Titre</th>
           <th>Contenu</th>
           <th>Matière</th>
+          <th>Année</th>
+
           <th>Action</th>
         </tr>
       </thead>
@@ -20,6 +22,7 @@
             </a>
             </td>
           <td>{{ lesson.subjectName }}</td>
+          <td>{{ lesson.year }}</td>
           <td>
             <button class="btn btn-warning btn-sm mr-4" (click)="openModal(lesson)" data-bs-toggle="modal" data-bs-target="#editLessonModal">
               Modifier

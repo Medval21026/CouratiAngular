@@ -7,6 +7,8 @@
       </div>
       <div class="modal-body">
         <form (submit)="onUpdate()">
+          
+          <!-- Titre -->
           <div class="mb-3">
             <label for="title" class="form-label">Titre de la Leçon</label>
             <input
@@ -17,7 +19,22 @@
               name="title"
               required>
           </div>
-          
+
+          <!-- Année -->
+          <div class="mb-3">
+            <label for="year" class="form-label">Année</label>
+            <input
+              type="number"
+              id="year"
+              class="form-control"
+              [(ngModel)]="lesson.year"
+              name="year"
+              required
+              min="1"
+              max="6">
+          </div>
+
+          <!-- Matière -->
           <div class="mb-3">
             <label for="subject" class="form-label">Matière</label>
             <ng-select
@@ -33,7 +50,7 @@
             </ng-select>
           </div>
 
-          <!-- Ajout du champ de modification du fichier -->
+          <!-- Fichier -->
           <div class="mb-3">
             <label for="file" class="form-label">Contenu (fichier)</label>
             <input

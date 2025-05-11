@@ -1,64 +1,87 @@
 <div class="container1">
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addLessonModal">
-      Ajouter une Leçon
-    </button>
-  
-    <div class="modal fade" id="addLessonModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalTitle">Ajouter une Leçon</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form #addLessonForm="ngForm" (ngSubmit)="onSubmit()">
-              <div class="mb-3">
-                <label for="title" class="form-label">Titre de la Leçon</label>
-                <input
-                  type="text"
-                  id="title"
-                  class="form-control"
-                  [(ngModel)]="lesson.title"
-                  name="title"
-                  required
-                  #title="ngModel">
-              </div>
-              <div class="mb-3">
-                <label for="subject" class="form-label">Matière</label>
-                <ng-select
-                  id="subject"
-                  [items]="subjects"
-                  bindLabel="name"
-                  bindValue="id"
-                  [(ngModel)]="lesson.subjectId"
-                  name="subjectId"
-                  placeholder="Sélectionnez une matière"
-                  required
-                  #subject="ngModel">
-                  <ng-template let-item="item">
-                    <div class="custom-item">
-                      <span class="item-label">{{ item.name_fr }}</span>
-                    </div>
-                  </ng-template>
-                </ng-select>
-              </div>
-  
-              <div class="mb-3">
-                <label for="file" class="form-label">Contenu (fichier)</label>
-                <input
-                  type="file"
-                  id="file"
-                  name="file"
-                  class="form-control"
-                  required
-                  (change)="onFileSelected($event)">
-              </div>
-  
-              <button type="submit" class="btn btn-success" [disabled]="addLessonForm.invalid">Ajouter</button>
-            </form>
-          </div>
+  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addLessonModal">
+    Ajouter une Leçon
+  </button>
+
+  <div class="modal fade" id="addLessonModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle">Ajouter une Leçon</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+        </div>
+        <div class="modal-body">
+          <form #addLessonForm="ngForm" (ngSubmit)="onSubmit()">
+
+            <!-- Titre -->
+            <div class="mb-3">
+              <label for="title" class="form-label">Titre de la Leçon</label>
+              <input
+                type="text"
+                id="title"
+                class="form-control"
+                [(ngModel)]="lesson.title"
+                name="title"
+                required
+                #title="ngModel">
+            </div>
+
+            <!-- Année -->
+            <div class="mb-3">
+              <label for="year" class="form-label">Année</label>
+              <input
+                type="number"
+                id="year"
+                class="form-control"
+                [(ngModel)]="lesson.year"
+                name="year"
+                required
+                min="1"
+                max="6"
+                #year="ngModel">
+            </div>
+
+            <!-- Matière -->
+            <div class="mb-3">
+              <label for="subject" class="form-label">Matière</label>
+              <ng-select
+                id="subject"
+                [items]="subjects"
+                bindLabel="name"
+                bindValue="id"
+                [(ngModel)]="lesson.subjectId"
+                name="subjectId"
+                placeholder="Sélectionnez une matière"
+                required
+                #subject="ngModel">
+                <ng-template let-item="item">
+                  <div class="custom-item">
+                    <span class="item-label">{{ item.name_fr }}</span>
+                  </div>
+                </ng-template>
+              </ng-select>
+            </div>
+
+            <!-- Fichier -->
+            <div class="mb-3">
+              <label for="file" class="form-label">Contenu (fichier)</label>
+              <input
+                type="file"
+                id="file"
+                name="file"
+                class="form-control"
+                required
+                (change)="onFileSelected($event)">
+            </div>
+
+            <!-- Bouton -->
+            <button type="submit" class="btn btn-success" >
+              Ajouter
+            </button>
+
+          </form>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

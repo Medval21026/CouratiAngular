@@ -13,7 +13,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
   styleUrls: ['./ajouter-lessons.component.css'],
 })
 export class AjouterLessonsComponent implements OnInit {
-  lesson = { title: '', content: null as File | null, subjectId: null as number | null };
+  lesson = { title: '', year: null as number | null, content: null as File | null, subjectId: null as number | null };
   subjects: any[] = [];
 
   @Output() lessonAdded = new EventEmitter<any>();
@@ -32,11 +32,12 @@ export class AjouterLessonsComponent implements OnInit {
 
   async onSubmit() {
     // Vérifie que les champs obligatoires sont remplis
-    if (this.lesson.title.trim() !== '' && this.lesson.subjectId && this.lesson.content) {
+    if (this.lesson.title.trim() !== '' && this.lesson.subjectId && this.lesson.content && this.lesson.year) {
       try {
         // Crée l'objet de la leçon
         const newLesson = {
           title: this.lesson.title,
+          year: this.lesson.year,
           subjectId: this.lesson.subjectId,
           content: this.lesson.content
         };
@@ -52,7 +53,7 @@ export class AjouterLessonsComponent implements OnInit {
         this.lessonAdded.emit(addedLesson);
 
         // Réinitialise le formulaire
-        this.lesson = { title: '', content: null, subjectId: null };
+        this.lesson = { title: '', year: null, content: null, subjectId: null };
       } catch (error) {
         console.error("Erreur lors de l'ajout de la leçon:", error);
         alert("Erreur lors de l'ajout de la leçon. Veuillez réessayer.");
