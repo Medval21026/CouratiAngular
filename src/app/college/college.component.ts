@@ -5,6 +5,9 @@ import { CommonModule } from '@angular/common';
 import { AjouterCollegeComponent } from '../ajouter-college/ajouter-college.component';
 import { ModifierCollegeComponent } from '../modifier-college/modifier-college.component';
 import { FormsModule } from '@angular/forms';  // Importer FormsModule pour ngModel
+ import Swal from 'sweetalert2';
+
+
 
 @Component({
   selector: 'app-college',
@@ -70,15 +73,65 @@ export class CollegeComponent implements OnInit {
     }
   }
 
-  deleteCollege(id: number) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce collège ?')) {
-      this.collegeService.deleteCollege(id).then(() => {
-        this.colleges = this.colleges.filter(col => col.id !== id);
-      }).catch(error => {
-        console.error('Erreur lors de la suppression:', error);
-      });
+
+deleteCollege(id: number) {
+  Swal.fire({
+    title: 'Êtes-vous sûr ?',
+    text: 'Cette action supprimera définitivement ce collège.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Oui, supprimer',
+    cancelButtonText: 'Annuler',
+    reverseButtons: true,
+    width: '350px',
+    padding: '1.5em',
+    customClass: {
+      title: 'swal-title-custom',
+      popup: 'swal-popup-custom',
+      confirmButton: 'swal-confirm-button',
+    },
+  }).then(result => {
+    if (result.isConfirmed) {
+      this.collegeService.deleteCollege(id)
+        .then(() => {
+          // Suppression réussie
+          this.colleges = this.colleges.filter(col => col.id !== id);
+
+          // Message de succès
+          Swal.fire({
+            title: 'Supprimé !',
+            text: 'Le collège a été supprimé avec succès.',
+            icon: 'success',
+            confirmButtonText: 'OK',
+            width: '350px',
+            padding: '1.5em',
+            customClass: {
+              confirmButton: 'swal-confirm-button'
+            },
+            buttonsStyling: false
+          });
+        })
+        .catch(error => {
+          console.error('Erreur lors de la suppression:', error);
+          // Message d'erreur
+          Swal.fire({
+            title: 'Erreur',
+            text: 'Une erreur s\'est produite lors de la suppression du collège.',
+            icon: 'error',
+            confirmButtonText: 'OK',
+            width: '350px',
+            padding: '1.5em',
+            customClass: {
+              title: 'swal-title-custom',
+              popup: 'swal-popup-custom',
+              confirmButton: 'swal-confirm-button'
+            }
+          });
+        });
     }
-  }
+  });
+}
+
 
   onCollegeAdded(newCollege: any) {
     this.colleges = [...this.colleges, newCollege];

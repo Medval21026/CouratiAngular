@@ -8,6 +8,7 @@ import { SemestreService } from '../services/semestre.service';
 import { CollegeService } from '../services/college.service';  // Importer CollegeService
 import { InstitutService } from '../services/institut.service'; 
 import { NgForm } from '@angular/forms';  // Importer InstitutService
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ajouter-subject',
@@ -45,26 +46,74 @@ export class AjouterSubjectComponent implements OnInit {
     }
   }
 
-  async onSubmit() {
-    console.log(this.subject);
-    
-    // Vérifie que tous les champs requis sont remplis
-    if (this.subject.name.trim() !== '' && this.subject.semesterId) {
-      try {
-        // Si le collegeId ou instituteId sont null, ils seront ignorés
-        const nouveauSubject = await this.subjectService.createSubject(this.subject);
-        const closeButton = document.querySelector('[data-bs-dismiss="modal"]') as HTMLElement;
-        if (closeButton) closeButton.click();
-        this.subjectAdded.emit(nouveauSubject);
-        // Réinitialisation du sujet après ajout
-        this.subject = { name: '', specializationId: null, semesterId: '', collegeId: null, instituteId: null };
-      } catch (error) {
-        console.error("Erreur lors de l'ajout du sujet:", error);
-        alert("Erreur lors de l'ajout du sujet. Veuillez réessayer.");
-      }
-    } else {
-      alert('Veuillez remplir tous les champs obligatoires.');
+
+async onSubmit() {
+  console.log(this.subject);
+
+  if (this.subject.name.trim() !== '' && this.subject.semesterId) {
+    try {
+      const nouveauSubject = await this.subjectService.createSubject(this.subject);
+
+      const closeButton = document.querySelector('[data-bs-dismiss="modal"]') as HTMLElement;
+      if (closeButton) closeButton.click();
+
+      this.subjectAdded.emit(nouveauSubject);
+      this.subject = { name: '', specializationId: null, semesterId: '', collegeId: null, instituteId: null };
+
+      // ✅ Message de succès
+      Swal.fire({
+        title: 'Ajout réussi',
+        text: 'La matière a été ajoutée avec succès.',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        width: '350px',
+        padding: '1.5em',
+        customClass: {
+          title: 'swal-title-custom',
+          popup: 'swal-popup-custom',
+          confirmButton: 'swal-confirm-button'
+        },
+        buttonsStyling: false
+      });
+
+    } catch (error) {
+      console.error("Erreur lors de l'ajout du sujet:", error);
+
+      // ❌ Message d'erreur
+      Swal.fire({
+        title: 'Erreur',
+        text: 'Une erreur s’est produite lors de l’ajout de la matière. Veuillez réessayer.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+        width: '350px',
+        padding: '1.5em',
+        customClass: {
+          title: 'swal-title-custom',
+          popup: 'swal-popup-custom',
+          confirmButton: 'swal-confirm-button'
+        },
+        buttonsStyling: false
+      });
     }
+
+  } else {
+    // ⚠️ Champs vides
+    Swal.fire({
+      title: 'Champs requis',
+      text: 'Veuillez remplir tous les champs obligatoires.',
+      icon: 'warning',
+      confirmButtonText: 'OK',
+      width: '350px',
+      padding: '1.5em',
+      customClass: {
+        title: 'swal-title-custom',
+        popup: 'swal-popup-custom',
+        confirmButton: 'swal-confirm-button'
+      },
+      buttonsStyling: false
+    });
   }
+}
+
   
 }

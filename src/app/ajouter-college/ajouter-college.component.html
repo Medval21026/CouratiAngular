@@ -1,18 +1,18 @@
 <div class="container1">
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCollegeModal">
-      Ajouter un Collège
+      Ajouter un Faculté
     </button>
     <div class="modal fade" id="addCollegeModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modalTitle">Ajouter un Collège</h5>
+            <h5 class="modal-title" id="modalTitle">Ajouter un Faculté</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <form #addCollegeForm="ngForm" (ngSubmit)="onSubmit()">
               <div class="mb-3">
-                <label for="name_fr" class="form-label">Nom du Collège Fr</label>
+                <label for="name_fr" class="form-label">Nom du Faculté Fr</label>
                 <input 
                   type="text" 
                   id="name_fr" 
@@ -23,7 +23,7 @@
                   #name="ngModel">
               </div>
               <div class="mb-3">
-                <label for="name_ar" class="form-label">Nom du Collège Ar</label>
+                <label for="name_ar" class="form-label">Nom du Faculté Ar</label>
                 <input 
                   type="text" 
                   id="name_ar" 

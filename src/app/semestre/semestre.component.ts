@@ -4,6 +4,7 @@ import { SemestreService } from '../services/semestre.service';
 import { AjouterSemestreComponent } from '../ajouter-semestre/ajouter-semestre.component';
 import { ModifierSemestreComponent } from '../modifier-semestre/modifier-semestre.component';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-semestre',
@@ -60,14 +61,62 @@ export class SemestreComponent {
   }
 
   deleteSemestre(id: number) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce semestre ?')) {
-      this.semestreService.deleteSemestre(id).then(() => {
-        this.semestres = this.semestres.filter(s => s.id !== id);
-      }).catch(error => {
-        console.error('Erreur lors de la suppression:', error);
-      });
+  Swal.fire({
+    title: 'Êtes-vous sûr ?',
+    text: 'Cette action supprimera définitivement ce semestre.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Oui, supprimer',
+    cancelButtonText: 'Annuler',
+    reverseButtons: true,
+    width: '350px',
+    padding: '1.5em',
+    customClass: {
+      title: 'swal-title-custom',
+      popup: 'swal-popup-custom',
+      confirmButton: 'swal-confirm-button',
+    },
+  }).then(result => {
+    if (result.isConfirmed) {
+      this.semestreService.deleteSemestre(id)
+        .then(() => {
+          this.semestres = this.semestres.filter(s => s.id !== id);
+          Swal.fire({
+            title: 'Supprimé',
+            text: 'Le semestre a été supprimé avec succès.',
+            icon: 'success',
+            confirmButtonText: 'OK',
+            width: '350px',
+            padding: '1.5em',
+            customClass: {
+              title: 'swal-title-custom',
+              popup: 'swal-popup-custom',
+              confirmButton: 'swal-confirm-button',
+            },
+            buttonsStyling: false
+          });
+        })
+        .catch(error => {
+          console.error('Erreur lors de la suppression:', error);
+          Swal.fire({
+            title: 'Erreur',
+            text: 'Une erreur est survenue lors de la suppression du semestre.',
+            icon: 'error',
+            confirmButtonText: 'OK',
+            width: '350px',
+            padding: '1.5em',
+            customClass: {
+              title: 'swal-title-custom',
+              popup: 'swal-popup-custom',
+              confirmButton: 'swal-confirm-button',
+            },
+            buttonsStyling: false
+          });
+        });
     }
-  }
+  });
+}
+
 
   onSemestreAdded(newSemestre: any) {
     this.semestres = [...this.semestres, newSemestre];

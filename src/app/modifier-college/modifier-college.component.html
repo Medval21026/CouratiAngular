@@ -2,17 +2,17 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="modalTitle">Modifier le Collège</h5>
+          <h5 class="modal-title" id="modalTitle">Modifier le Faculté</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form (submit)="onUpdate()">
             <div class="mb-3">
-              <label for="name_fr" class="form-label">Nom du Collège Fr</label>
+              <label for="name_fr" class="form-label">Nom du Faculté Fr</label>
               <input type="text" id="name_fr" class="form-control" [(ngModel)]="college.name_fr" name="name_fr" required>
             </div>
             <div class="mb-3">
-              <label for="name_ar" class="form-label">Nom du Collège Fr</label>
+              <label for="name_ar" class="form-label">Nom du Faculté Fr</label>
               <input type="text" id="name_ar" class="form-control" [(ngModel)]="college.name_ar" name="name_ar" required>
             </div>
             <div class="mb-3">

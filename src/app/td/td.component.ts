@@ -4,6 +4,9 @@ import { TdService } from '../services/td.service';
 import { AjouterTdComponent } from '../ajouter-td/ajouter-td.component';
 import { ModifierTdComponent } from '../modifier-td/modifier-td.component';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../environments/environment';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-td',
@@ -68,22 +71,69 @@ export class TdComponent implements OnInit {
     }
   }
 
-  deleteTd(id: number) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce TD ?')) {
+
+deleteTd(id: number) {
+  Swal.fire({
+    title: 'Êtes-vous sûr ?',
+    text: 'Cette action supprimera définitivement ce TD.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Oui, supprimer',
+    cancelButtonText: 'Annuler',
+    reverseButtons: true,
+    width: '350px',
+    padding: '1.5em',
+    customClass: {
+      title: 'swal-title-custom',
+      popup: 'swal-popup-custom',
+      confirmButton: 'swal-confirm-button'
+    },
+  }).then((result) => {
+    if (result.isConfirmed) {
       this.tdService.deleteTd(id).then(() => {
         this.tds = this.tds.filter(td => td.id !== id);
+        Swal.fire({
+          title: 'Supprimé !',
+          text: 'Le TD a été supprimé avec succès.',
+          icon: 'success',
+          confirmButtonText: 'OK',
+          width: '350px',
+          padding: '1.5em',
+          customClass: {
+            title: 'swal-title-custom',
+            popup: 'swal-popup-custom',
+            confirmButton: 'swal-confirm-button'
+          },
+        });
       }).catch(error => {
         console.error('Erreur lors de la suppression du TD:', error);
+        Swal.fire({
+          title: 'Erreur',
+          text: 'Une erreur est survenue lors de la suppression.',
+          icon: 'error',
+          confirmButtonText: 'OK',
+          width: '350px',
+          padding: '1.5em',
+          customClass: {
+            title: 'swal-title-custom',
+            popup: 'swal-popup-custom',
+            confirmButton: 'swal-confirm-button'
+          },
+          buttonsStyling: false
+        });
       });
     }
-  }
+  });
+}
+
 
   tdAdded(newTd: any) {
     this.tds = [...this.tds, newTd];
   }
 
-  getFichierUrl(tds: string): string {
-    const content = tds.split('/').pop(); // Récupère juste le nom du fichier
-    return `http://localhost:8077/uploads/tps/${content}`;
-  }
+  getFichierUrl(contentPath: string): string {
+  const fileName = contentPath.split('/').pop();
+  return `${environment.apiUrl}/uploads/devoirs/${fileName}`;
+}
+
 }

@@ -4,6 +4,7 @@ import { AcademicStageService } from '../services/academic-stage.service';
 import { AjouterAcademicStageComponent } from '../ajouter-academic-stage/ajouter-academic-stage.component';
 import { ModifierAcademicStageComponent } from '../modifier-academic-stage/modifier-academic-stage.component';
 import { PLATFORM_ID } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-academic-stage',
@@ -65,15 +66,63 @@ export class AcademicStageComponent implements OnInit {
     }
   }
 
-  deleteAcademicStage(id: number) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce stage académique ?')) {
+ deleteAcademicStage(id: number) {
+  Swal.fire({
+    title: 'Êtes-vous sûr ?',
+    text: 'Cette action supprimera définitivement ce stage académique.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Oui, supprimer',
+    cancelButtonText: 'Annuler',
+    reverseButtons: true,
+    width: '350px',
+    padding: '1.5em',
+    customClass: {
+      title: 'swal-title-custom',
+      popup: 'swal-popup-custom',
+      confirmButton: 'swal-confirm-button'
+    },
+  }).then(result => {
+    if (result.isConfirmed) {
       this.academicStageService.delete(id).then(() => {
         this.academicStages = this.academicStages.filter(s => s.id !== id);
+
+        Swal.fire({
+          title: 'Supprimé',
+          text: 'Le stage académique a été supprimé avec succès.',
+          icon: 'success',
+          confirmButtonText: 'OK',
+          width: '350px',
+          padding: '1.5em',
+          customClass: {
+            title: 'swal-title-custom',
+            popup: 'swal-popup-custom',
+            confirmButton: 'swal-confirm-button'
+          },
+          buttonsStyling: false
+        });
+
       }).catch(error => {
         console.error('Erreur lors de la suppression:', error);
+        Swal.fire({
+          title: 'Erreur',
+          text: 'Une erreur est survenue lors de la suppression.',
+          icon: 'error',
+          confirmButtonText: 'OK',
+          width: '350px',
+          padding: '1.5em',
+          customClass: {
+            title: 'swal-title-custom',
+            popup: 'swal-popup-custom',
+            confirmButton: 'swal-confirm-button'
+          },
+          buttonsStyling: false
+        });
       });
     }
-  }
+  });
+}
+
 
   academicStageAdded(newStage: any) {
     this.academicStages = [...this.academicStages, newStage];

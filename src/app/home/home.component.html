@@ -81,7 +81,7 @@
 </div><br>
 
 <hr class="ml-4 mr-4 ">
-<h1 class="ml-4">Statistique des Univercity Par Colleges</h1>
+<h1 class="ml-4">Statistique des Univercity Par Faculté</h1>
 <div class="continer1" *ngIf="collegeData">
     <div class="statis_uni" *ngFor="let item of collegeData">
         <p>{{ item.universityName }}</p>
@@ -92,7 +92,7 @@
     </div>
 </div>
 <hr class="ml-4 mr-4 ">
-<h1 class="ml-4">Statistique des colleges Par Specialitées</h1>
+<h1 class="ml-4">Statistique des Facultés Par Specialitées</h1>
 <div class="continer1" *ngIf="specializationCountByCollege">
     <div class="statis_uni" *ngFor="let item of specializationCountByCollege">
         <p>{{ item.collegeName  }}</p>
@@ -114,7 +114,7 @@
     </div>
 </div>
 <hr class="ml-4 mr-4 ">
-<h1 class="ml-4">Statistique des Bars</h1>
+<h1 class="ml-4">Statistique des Instituts et Facultés Par Specialitées </h1>
 <div class="continer1">
     <canvas id="canvasCollege" width="400" height="200"></canvas>
     <canvas id="canvasInstitute" width="400" height="200"></canvas>  

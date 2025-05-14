@@ -84,7 +84,7 @@ export class AuthserviceService {
   async supprimerEtudiant(id: number): Promise<void> {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`${this.baseUrl}/${id}`, {
+      const response = await fetch(`${this.baseUrl}/'gh'/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': token ? `Bearer ${token}` : ''

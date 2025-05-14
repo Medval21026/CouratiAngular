@@ -5,6 +5,7 @@ import { InstitutService } from '../services/institut.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -44,11 +45,49 @@ export class ModifierSpecialisationComponent implements OnInit {
   }
 
   async onUpdate() {
-    try {
-      await this.specialisationService.updateSpecialisation(this.specialisation.id, this.specialisation);
-      this.specialisationUpdated.emit();
-    } catch (error) {
-      console.error('Erreur lors de la mise à jour de la spécialisation', error);
-    }
+  try {
+    // Tentative de mise à jour de la spécialisation via le service
+    await this.specialisationService.updateSpecialisation(this.specialisation.id, this.specialisation);
+    
+    // Emission de l'événement pour notifier que la spécialisation a été mise à jour
+    this.specialisationUpdated.emit();
+
+    // Affichage d'un message de succès
+    Swal.fire({
+      title: 'Mise à jour réussie',
+      text: 'La spécialisation a été mise à jour avec succès.',
+      icon: 'success',
+      confirmButtonText: 'OK',
+      width: '350px',
+      padding: '1.5em',
+      customClass: {
+        title: 'swal-title-custom',
+        popup: 'swal-popup-custom',
+        confirmButton: 'swal-confirm-button'
+      },
+      buttonsStyling: false
+    });
+    
+  } catch (error) {
+    // Gestion de l'erreur lors de la mise à jour
+    console.error('Erreur lors de la mise à jour de la spécialisation', error);
+
+    // Affichage d'un message d'erreur
+    Swal.fire({
+      title: 'Erreur',
+      text: 'Une erreur est survenue lors de la mise à jour de la spécialisation. Veuillez réessayer.',
+      icon: 'error',
+      confirmButtonText: 'OK',
+      width: '350px',
+      padding: '1.5em',
+      customClass: {
+        title: 'swal-title-custom',
+        popup: 'swal-popup-custom',
+        confirmButton: 'swal-confirm-button'
+      },
+      buttonsStyling: false
+    });
   }
+}
+
 }

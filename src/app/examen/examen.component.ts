@@ -4,6 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { ExamenService } from '../services/examen.service';
 import { AjouterExamenComponent } from '../ajouter-examen/ajouter-examen.component';
 import { ModifierExamenComponent } from '../modifier-examen/modifier-examen.component';
+import { environment } from '../../environments/environment';
+import Swal from 'sweetalert2';
+
+
 
 @Component({
   selector: 'app-examen',
@@ -71,22 +75,68 @@ export class ExamenComponent implements OnInit {
     }
   }
 
-  deleteExamen(id: number) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cet examen ?')) {
-      this.examenService.deleteExamen(id).then(() => {
-        this.examens = this.examens.filter(examen => examen.id !== id);
-      }).catch(error => {
-        console.error('Erreur lors de la suppression de l\'examen:', error);
-      });
+
+deleteExamen(id: number) {
+  Swal.fire({
+    title: 'Êtes-vous sûr ?',
+    text: "Cette action est irréversible.",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Oui, supprimer',
+    cancelButtonText: 'Annuler',
+    width:'350px',
+    customClass: {
+      title: 'swal-title-custom',
+      popup: 'swal-popup-custom',
+      confirmButton: 'swal-confirm-button',
     }
-  }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.examenService.deleteExamen(id)
+        .then(() => {
+          this.examens = this.examens.filter(examen => examen.id !== id);
+          Swal.fire({
+            icon: 'success',
+            title: 'Examen supprimé',
+            text: 'L\'examen a été supprimé avec succès.',
+            confirmButtonText: 'oK',
+            width: '350px',
+            padding: '1.5em',
+            customClass: {
+              title: 'swal-title-custom',
+              popup: 'swal-popup-custom',
+              confirmButton: 'swal-confirm-button'
+            }
+          });
+        })
+        .catch((error) => {
+          console.error('Erreur lors de la suppression de l\'examen:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: 'Une erreur est survenue lors de la suppression de l\'examen.',
+            confirmButtonText: 'OK',
+            width: '350px',
+            padding: '1.5em',
+            customClass: {
+              title: 'swal-title-custom',
+              popup: 'swal-popup-custom',
+              confirmButton: 'swal-confirm-button'
+            }
+          });
+        });
+    }
+  });
+}
+
 
   examenAdded(newExamen: any) {
     this.examens = [...this.examens, newExamen];
   }
 
-  getFichierUrl(examen: string): string {
-    const content = examen.split('/').pop();
-    return `http://localhost:8077/uploads/examens/${content}`;
-  }
+  getFichierUrl(contentPath: string): string {
+  const fileName = contentPath.split('/').pop();
+  return `${environment.apiUrl}/uploads/devoirs/${fileName}`;
+}
+
 }

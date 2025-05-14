@@ -4,6 +4,8 @@ import { TpService } from '../services/tp.service';
 import { AjouterTpComponent } from '../ajouter-tp/ajouter-tp.component';
 import { ModifierTpComponent } from '../modifier-tp/modifier-tp.component';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tp',
@@ -68,22 +70,72 @@ export class TpComponent implements OnInit {
     }
   }
 
-  deleteTp(id: number) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce TP ?')) {
+
+deleteTp(id: number) {
+  Swal.fire({
+    title: 'Êtes-vous sûr ?',
+    text: 'Cette action supprimera définitivement ce TP.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Oui, supprimer',
+    cancelButtonText: 'Annuler',
+    reverseButtons: true,
+    width: '350px',
+    padding: '1.5em',
+    customClass: {
+      title: 'swal-title-custom',
+      popup: 'swal-popup-custom',
+      confirmButton: 'swal-confirm-button'
+    },
+  }).then(result => {
+    if (result.isConfirmed) {
       this.tpService.deleteTp(id).then(() => {
         this.tps = this.tps.filter(tp => tp.id !== id);
+
+        Swal.fire({
+          title: 'Supprimé',
+          text: 'Le TP a été supprimé avec succès.',
+          icon: 'success',
+          confirmButtonText: 'OK',
+          width: '350px',
+          padding: '1.5em',
+          customClass: {
+            title: 'swal-title-custom',
+            popup: 'swal-popup-custom',
+            confirmButton: 'swal-confirm-button'
+          },
+          buttonsStyling: false
+        });
       }).catch(error => {
         console.error('Erreur lors de la suppression du TP:', error);
+
+        Swal.fire({
+          title: 'Erreur',
+          text: 'Échec de la suppression du TP.',
+          icon: 'error',
+          confirmButtonText: 'OK',
+          width: '350px',
+          padding: '1.5em',
+          customClass: {
+            title: 'swal-title-custom',
+            popup: 'swal-popup-custom',
+            confirmButton: 'swal-confirm-button'
+          },
+          buttonsStyling: false
+        });
       });
     }
-  }
+  });
+}
+
 
   tpAdded(newTp: any) {
     this.tps = [...this.tps, newTp];
   }
 
-  getFichierUrl(tps: string): string {
-    const content = tps.split('/').pop();
-    return `http://localhost:8077/uploads/tps/${content}`;
-  }
+  getFichierUrl(contentPath: string): string {
+  const fileName = contentPath.split('/').pop();
+  return `${environment.apiUrl}/uploads/devoirs/${fileName}`;
+}
+
 }

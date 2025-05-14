@@ -5,6 +5,7 @@ import { InstitutService } from '../services/institut.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modifier-academic-stage',
@@ -44,11 +45,43 @@ export class ModifierAcademicStageComponent implements OnInit {
   }
 
   async onUpdate() {
-    try {
-      await this.academicStageService.update(this.academicStage.id, this.academicStage);
-      this.academicStageUpdated.emit();
-    } catch (error) {
-      console.error('Erreur lors de la mise à jour du stage académique', error);
-    }
+  try {
+    await this.academicStageService.update(this.academicStage.id, this.academicStage);
+    this.academicStageUpdated.emit();
+
+    Swal.fire({
+      title: 'Mise à jour réussie',
+      text: 'Le stage académique a été mis à jour avec succès.',
+      icon: 'success',
+      confirmButtonText: 'OK',
+      width: '350px',
+      padding: '1.5em',
+      customClass: {
+        title: 'swal-title-custom',
+        popup: 'swal-popup-custom',
+        confirmButton: 'swal-confirm-button'
+      },
+      buttonsStyling: false
+    });
+
+  } catch (error) {
+    console.error('Erreur lors de la mise à jour du stage académique', error);
+
+    Swal.fire({
+      title: 'Erreur',
+      text: 'Une erreur est survenue lors de la mise à jour du stage académique.',
+      icon: 'error',
+      confirmButtonText: 'OK',
+      width: '350px',
+      padding: '1.5em',
+      customClass: {
+        title: 'swal-title-custom',
+        popup: 'swal-popup-custom',
+        confirmButton: 'swal-confirm-button'
+      },
+      buttonsStyling: false
+    });
   }
+}
+
 }

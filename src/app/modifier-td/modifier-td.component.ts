@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TdService } from '../services/td.service';
 import { SubjectService } from '../services/subject.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'modifier-td',
@@ -29,19 +30,50 @@ export class ModifierTdComponent implements OnInit {
     }).catch(error => console.error('Erreur lors du chargement des matières', error));
   }
 
-  async onUpdate() {
-    try {
-      await this.tdService.updateTd(this.td.id, {
-        title: this.td.title,
-        subjectId: this.td.subjectId,
-        year: this.td.year,
-        content: this.td.content
-      });
-      this.tdUpdated.emit();
-    } catch (error) {
-      console.error('Erreur lors de la mise à jour du TD', error);
-    }
+async onUpdate() {
+  try {
+    await this.tdService.updateTd(this.td.id, {
+      title: this.td.title,
+      subjectId: this.td.subjectId,
+      year: this.td.year,
+      content: this.td.content
+    });
+
+    this.tdUpdated.emit();
+
+    Swal.fire({
+      title: 'Succès',
+      text: 'Le TD a été mis à jour avec succès.',
+      icon: 'success',
+      confirmButtonText: 'OK',
+      width: '350px',
+      padding: '1.5em',
+      customClass: {
+        title: 'swal-title-custom',
+        popup: 'swal-popup-custom',
+        confirmButton: 'swal-confirm-button'
+      },
+    });
+
+  } catch (error) {
+    console.error('Erreur lors de la mise à jour du TD', error);
+    Swal.fire({
+      title: 'Erreur',
+      text: 'Une erreur est survenue lors de la mise à jour du TD.',
+      icon: 'error',
+      confirmButtonText: 'OK',
+      width: '350px',
+      padding: '1.5em',
+      customClass: {
+        title: 'swal-title-custom',
+        popup: 'swal-popup-custom',
+        confirmButton: 'swal-confirm-button'
+      },
+      buttonsStyling: false
+    });
   }
+}
+
 
   onFileSelected(event: any) {
     const file = event.target.files[0];

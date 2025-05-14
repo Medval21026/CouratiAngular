@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { AjouterUniversityComponent } from '../ajouter-university/ajouter-university.component';
 import { ModifierUniversityComponent } from '../modifier-university/modifier-university.component';
 import { FormsModule } from '@angular/forms';  // Importer FormsModule pour ngModel
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-university',
   templateUrl: './university.component.html',
@@ -71,16 +71,61 @@ export class UniversityComponent implements OnInit {
     }
   }
 
-  deleteUniversity(id: number) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cette université ?')) {
-      this.universityService.deleteUniversity(id).then(() => {
-        const updatedUniversities = this.universities.filter(university => university.id !== id);
-        this.universities = [...updatedUniversities];
-      }).catch(error => {
-        console.error('Erreur lors de la suppression de l\'université:', error);
-      });
+deleteUniversity(id: number): void {
+  Swal.fire({
+    title: 'Suppression de l’université',
+    text: 'Êtes-vous sûr de vouloir supprimer cette université ?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Oui, supprimer',
+    cancelButtonText: 'Annuler',
+    reverseButtons: true,
+    width: '350px',
+    padding: '1.5em',
+    customClass: {
+      title: 'swal-title-custom',
+      popup: 'swal-popup-custom',
+      confirmButton: 'swal-confirm-button'
     }
-  }  
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.universityService.deleteUniversity(id)
+        .then(() => {
+          this.universities = this.universities.filter(univ => univ.id !== id);
+          Swal.fire({
+            title: 'Supprimée',
+            text: 'L’université a été supprimée avec succès.',
+            icon: 'success',
+            confirmButtonText: 'OK',
+            width: '350px',
+            padding: '1.5em',
+            customClass: {
+              title: 'swal-title-custom',
+              popup: 'swal-popup-custom',
+              confirmButton: 'swal-confirm-button'
+            }
+          });
+        })
+        .catch(error => {
+          console.error("Erreur lors de la suppression :", error);
+          Swal.fire({
+            title: 'Erreur',
+            text: 'Une erreur est survenue lors de la suppression.',
+            icon: 'error',
+            confirmButtonText: 'OK',
+            width: '350px',
+            padding: '1.5em',
+            customClass: {
+              title: 'swal-title-custom',
+              popup: 'swal-popup-custom',
+              confirmButton: 'swal-confirm-button'
+            }
+          });
+        });
+    }
+  });
+}
+
 
   onUniversityAdded(newUniversity: any) {
     const modalElement = document.getElementById('addUniversityModal');

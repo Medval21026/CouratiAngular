@@ -4,6 +4,7 @@ import { SemestreService } from '../services/semestre.service';
 import { AcademicStageService } from '../services/academic-stage.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modifier-semestre',
@@ -36,12 +37,45 @@ export class ModifierSemestreComponent implements OnInit {
   }
 
   async onUpdate() {
-    try {
-      await this.semestreService.updateSemestre(this.semestre.id, this.semestre);
-      this.semestreUpdated.emit();
-    } catch (error) {
-      console.error('Erreur lors de la modification du semestre:', error);
-      alert('Erreur lors de la modification du semestre');
-    }
+  try {
+    await this.semestreService.updateSemestre(this.semestre.id, this.semestre);
+    this.semestreUpdated.emit();
+
+    // ✅ Message de succès
+    Swal.fire({
+      title: 'Mise à jour réussie',
+      text: 'Le semestre a été mis à jour avec succès.',
+      icon: 'success',
+      confirmButtonText: 'OK',
+      width: '350px',
+      padding: '1.5em',
+      customClass: {
+        title: 'swal-title-custom',
+        popup: 'swal-popup-custom',
+        confirmButton: 'swal-confirm-button'
+      },
+      buttonsStyling: false
+    });
+
+  } catch (error) {
+    console.error('Erreur lors de la modification du semestre:', error);
+
+    // ❌ Message d'erreur
+    Swal.fire({
+      title: 'Erreur',
+      text: 'Une erreur est survenue lors de la mise à jour du semestre.',
+      icon: 'error',
+      confirmButtonText: 'OK',
+      width: '350px',
+      padding: '1.5em',
+      customClass: {
+        title: 'swal-title-custom',
+        popup: 'swal-popup-custom',
+        confirmButton: 'swal-confirm-button'
+      },
+      buttonsStyling: false
+    });
   }
+}
+
 }

@@ -4,6 +4,9 @@ import { AjouterDevoireComponent } from '../ajouter-devoire/ajouter-devoire.comp
 import { DevoirService } from '../services/devoire.service';
 import { ModifierDevoireComponent } from '../modifier-devoire/modifier-devoire.component';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../environments/environment';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-devoir',
@@ -68,20 +71,68 @@ export class DevoirComponent implements OnInit {
     }
   }
 
-  deleteDevoir(id: number) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce devoir ?')) {
-      this.devoirService.deleteDevoir(id)
-        .then(() => this.devoirs = this.devoirs.filter(d => d.id !== id))
-        .catch(error => console.error('Erreur lors de la suppression du devoir:', error));
+
+deleteDevoir(id: number) {
+  Swal.fire({
+    title: 'Êtes-vous sûr ?',
+    text: "vous voulez supprimé le devoir.",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Oui, supprimer',
+    cancelButtonText: 'Annuler',
+    width:'350px',
+    customClass: {
+      title: 'swal-title-custom',
+      popup: 'swal-popup-custom',
+      confirmButton: 'swal-confirm-button',
     }
-  }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.devoirService.deleteDevoir(id)
+        .then(() => {
+          this.devoirs = this.devoirs.filter(d => d.id !== id);
+          Swal.fire({
+            icon: 'success',
+            title: 'Devoir supprimé',
+            text: 'Le devoir a été supprimé avec succès.',
+            confirmButtonText: 'ok',
+            width: '350px',
+            padding: '1.5em',
+            customClass: {
+              title: 'swal-title-custom',      // Classe CSS pour le titre
+              popup: 'swal-popup-custom',      // Classe CSS pour la popup
+              confirmButton: 'swal-confirm-button', // Classe CSS pour le bouton de confirmation
+            },
+          });
+        })
+        .catch((error) => {
+          console.error('Erreur lors de la suppression du devoir:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: 'Une erreur est survenue lors de la suppression du devoir.',
+            confirmButtonText: 'ok',
+            width: '350px',
+            padding: '1.5em',
+            customClass: {
+              title: 'swal-title-custom',
+              popup: 'swal-popup-custom',
+              confirmButton: 'swal-confirm-button'
+            }
+          });
+        });
+    }
+  });
+}
+
 
   devoirAdded(newDevoir: any) {
     this.devoirs = [...this.devoirs, newDevoir];
   }
 
   getFichierUrl(contentPath: string): string {
-    const fileName = contentPath.split('/').pop();
-    return `http://localhost:8077/uploads/devoirs/${fileName}`;
-  }
+  const fileName = contentPath.split('/').pop();
+  return `${environment.apiUrl}/uploads/devoirs/${fileName}`;
+}
+
 }

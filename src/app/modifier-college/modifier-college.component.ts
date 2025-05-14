@@ -4,6 +4,7 @@ import { UniversityService } from '../services/university.service'; // Assurez-v
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -30,12 +31,45 @@ export class ModifierCollegeComponent implements OnInit {
   }
 
   // Méthode pour mettre à jour le collège
-  async onUpdate() {
-    try {
-      await this.collegeService.updateCollege(this.college.id, this.college); // Mise à jour du collège via le service
-      this.collegeUpdated.emit(); // Emission de l'événement pour notifier que la mise à jour est terminée
-    } catch (error) {
-      console.error('Erreur lors de la mise à jour du collège', error);
-    }
+
+async onUpdate() {
+  try {
+    // Mise à jour du collège via le service
+    await this.collegeService.updateCollege(this.college.id, this.college);
+
+    // Émission de l'événement de mise à jour
+    this.collegeUpdated.emit();
+
+    // ✅ Message de succès
+    Swal.fire({
+      title: 'Mise à jour réussie',
+      text: 'Le collège a été mis à jour avec succès.',
+      icon: 'success',
+      confirmButtonText: 'OK',
+      width: '350px',
+      padding: '1.5em',
+      customClass: {
+        confirmButton: 'swal-confirm-button'
+      },
+      buttonsStyling: false
+    });
+  } catch (error) {
+    console.error('Erreur lors de la mise à jour du collège', error);
+
+    // ❌ Message d'erreur
+    Swal.fire({
+      title: 'Erreur',
+      text: 'Une erreur s\'est produite lors de la mise à jour du collège.',
+      icon: 'error',
+      confirmButtonText: 'OK',
+      width: '350px',
+      padding: '1.5em',
+      customClass: {
+        confirmButton: 'swal-confirm-button'
+      },
+      buttonsStyling: false
+    });
   }
+}
+
 }

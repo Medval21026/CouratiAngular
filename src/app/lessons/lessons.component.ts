@@ -4,6 +4,11 @@ import { LessonsService } from '../services/lessons.service';
 import { AjouterLessonsComponent } from '../ajouter-lessons/ajouter-lessons.component';
 import { ModifierLessonsComponent } from '../modifier-lessons/modifier-lessons.component';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../environments/environment';
+ import Swal from 'sweetalert2';
+
+
+
 
 @Component({
   selector: 'app-lesson',
@@ -71,24 +76,68 @@ export class LessonsComponent implements OnInit {
     }
   }
 
-  deleteLesson(id: number) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cette leçon ?')) {
+
+deleteLesson(id: number) {
+  Swal.fire({
+    title: 'Confirmation',
+    text: 'Êtes-vous sûr de vouloir supprimer cette leçon ?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Oui, supprimer',
+    cancelButtonText: 'Annuler',
+    width:'350px',
+    customClass: {
+      title: 'swal-title-custom',
+      popup: 'swal-popup-custom',
+      confirmButton: 'swal-confirm-button',
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
       this.lessonsService.deleteLesson(id).then(() => {
         this.lessons = this.lessons.filter(lesson => lesson.id !== id);
         this.filterLessons();
+
+        Swal.fire({
+          title: 'Supprimée',
+          text: 'La leçon a été supprimée avec succès.',
+          icon: 'success',
+          confirmButtonText: 'OK',
+          width:'350px',
+
+          customClass: {
+            title: 'swal-title-custom',
+            popup: 'swal-popup-custom',
+            confirmButton: 'swal-confirm-button'
+          }
+        });
       }).catch(error => {
         console.error('Erreur lors de la suppression de la leçon:', error);
+        Swal.fire({
+          title: 'Erreur',
+          text: 'Impossible de supprimer la leçon.',
+          icon: 'error',
+          confirmButtonText: 'OK',
+          width:'350px',
+          customClass: {
+            title: 'swal-title-custom',
+            popup: 'swal-popup-custom',
+            confirmButton: 'swal-confirm-button'
+          }
+        });
       });
     }
-  }
+  });
+}
+
 
   lessonAdded(newLesson: any) {
     this.lessons = [...this.lessons, newLesson];
     this.filterLessons();
   }
 
-  getFichierUrl(lesson: string): string {
-    const content = lesson.split('/').pop();
-    return `http://localhost:8077/uploads/lessons/${content}`;
-  }
+  getFichierUrl(contentPath: string): string {
+  const fileName = contentPath.split('/').pop();
+  return `${environment.apiUrl}/uploads/devoirs/${fileName}`;
+}
+
 }

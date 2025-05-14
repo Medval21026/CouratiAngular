@@ -4,6 +4,9 @@ import { SubjectService } from '../services/subject.service';
 import { AjouterSubjectComponent } from '../ajouter-subject/ajouter-subject.component';
 import { ModifierSubjectComponent } from '../modifier-subject/modifier-subject.component';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
+
+
 
 @Component({
   selector: 'app-subject',
@@ -47,14 +50,66 @@ export class SubjectComponent implements OnInit {
     this.filterSubjects(); // 🔁 re-filtrer avec le nouveau
   }
 
-  deleteSubject(id: number) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cette matière ?')) {
-      this.subjectService.deleteSubject(id).then(() => {
-        this.subjects = this.subjects.filter(s => s.id !== id);
-        this.filterSubjects(); // 🧼 mise à jour
-      }).catch(error => console.error('Erreur lors de la suppression:', error));
+
+deleteSubject(id: number) {
+  Swal.fire({
+    title: 'Suppression de la matière',
+    text: 'Êtes-vous sûr de vouloir supprimer cette matière ?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Oui, supprimer',
+    cancelButtonText: 'Annuler',
+    reverseButtons: true,
+    width: '350px',
+    padding: '1.5em',
+    customClass: {
+      title: 'swal-title-custom',
+      popup: 'swal-popup-custom',
+      confirmButton: 'swal-confirm-button'
+    },
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.subjectService.deleteSubject(id)
+        .then(() => {
+          this.subjects = this.subjects.filter(s => s.id !== id);
+          this.filterSubjects();
+
+          Swal.fire({
+            title: 'Supprimé',
+            text: 'La matière a été supprimée avec succès.',
+            icon: 'success',
+            confirmButtonText: 'OK',
+            width: '350px',
+            padding: '1.5em',
+            customClass: {
+              title: 'swal-title-custom',
+              popup: 'swal-popup-custom',
+              confirmButton: 'swal-confirm-button'
+            },
+            buttonsStyling: false
+          });
+        })
+        .catch(error => {
+          console.error('Erreur lors de la suppression:', error);
+          Swal.fire({
+            title: 'Erreur',
+            text: 'Une erreur s’est produite lors de la suppression.',
+            icon: 'error',
+            confirmButtonText: 'OK',
+            width: '350px',
+            padding: '1.5em',
+            customClass: {
+              title: 'swal-title-custom',
+              popup: 'swal-popup-custom',
+              confirmButton: 'swal-confirm-button'
+            },
+            buttonsStyling: false
+          });
+        });
     }
-  }
+  });
+}
+
 
   openModal(subject: any) {
     if (isPlatformBrowser(this.platformId)) {

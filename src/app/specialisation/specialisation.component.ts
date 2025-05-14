@@ -4,6 +4,7 @@ import { SpecialisationService } from '../services/specialisation.service';
 import { AjouterSpecialisationComponent } from '../ajouter-specialisation/ajouter-specialisation.component';
 import { ModifierSpecialisationComponent } from '../modifier-specialisation/modifier-specialisation.component';
 import { FormsModule } from '@angular/forms';  // Importer FormsModule pour ngModel
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-specialisation',
@@ -74,15 +75,66 @@ export class SpecialisationComponent implements OnInit {
     }
   }
 
-  deleteSpecialisation(id: number) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cette spécialisation ?')) {
-      this.specialisationService.deleteSpecialisation(id).then(() => {
-        this.specialisations = this.specialisations.filter(sp => sp.id !== id);
-      }).catch((error: any) => {
-        console.error('Erreur lors de la suppression:', error);
+async deleteSpecialisation(id: number) {
+  const result = await Swal.fire({
+    title: 'Êtes-vous sûr ?',
+    text: 'Cette action supprimera définitivement cette spécialisation.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Oui, supprimer',
+    cancelButtonText: 'Annuler',
+    reverseButtons: true,
+    width: '350px',
+    padding: '1.5em',
+    customClass: {
+      title: 'swal-title-custom',
+      popup: 'swal-popup-custom',
+      confirmButton: 'swal-confirm-button'
+    },
+  });
+
+  if (result.isConfirmed) {
+    try {
+      await this.specialisationService.deleteSpecialisation(id);
+      this.specialisations = this.specialisations.filter(sp => sp.id !== id);
+
+      Swal.fire({
+        title: 'Suppression réussie',
+        text: 'La spécialisation a été supprimée avec succès.',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        width: '350px',
+        padding: '1.5em',
+        customClass: {
+          title: 'swal-title-custom',
+          popup: 'swal-popup-custom',
+          confirmButton: 'swal-confirm-button'
+        },
+        buttonsStyling: false
+      });
+
+      console.log('Spécialisation supprimée avec succès');
+    } catch (error) {
+      console.error('Erreur lors de la suppression:', error);
+
+      Swal.fire({
+        title: 'Erreur',
+        text: 'Une erreur est survenue lors de la suppression de la spécialisation.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+        width: '350px',
+        padding: '1.5em',
+        customClass: {
+          title: 'swal-title-custom',
+          popup: 'swal-popup-custom',
+          confirmButton: 'swal-confirm-button'
+        },
+        buttonsStyling: false
       });
     }
   }
+}
+
 
   specialisationAdded(newSpecialisation: any) {
     this.specialisations = [...this.specialisations, newSpecialisation];

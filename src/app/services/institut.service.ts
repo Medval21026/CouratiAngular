@@ -16,13 +16,21 @@ export class InstitutService {
 
   // Ajouter un institut
   async createInstitute(institute: any): Promise<any> {
-    const response = await fetch(`${this.baseUrl}/ajouter_institut`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(institute),
-    });
-    return response.json();
+  const response = await fetch(`${this.baseUrl}/ajouter_institut`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(institute),
+  });
+
+  // ✅ Vérifie si le status est entre 200 et 299
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(errorText || 'Erreur lors de l’ajout de l’institut.');
   }
+
+  return response.json();
+}
+
 
   // Modifier un institut
   async updateInstitute(id: number, institute: any): Promise<any> {

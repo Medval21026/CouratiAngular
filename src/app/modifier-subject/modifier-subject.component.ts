@@ -7,6 +7,8 @@ import { SpecialisationService } from '../services/specialisation.service';
 import { SemestreService } from '../services/semestre.service';
 import { CollegeService } from '../services/college.service';  // Importer CollegeService
 import { InstitutService } from '../services/institut.service';  // Importer InstitutService
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-modifier-subject',
@@ -63,12 +65,47 @@ export class ModifierSubjectComponent implements OnInit {
     }).catch(err => console.error('Erreur lors du chargement des institutes', err));
   }
 
-  async onUpdate() {
-    try {
-      await this.subjectService.updateSubject(this.subject.id, this.subject);
-      this.subjectUpdated.emit();
-    } catch (error) {
-      console.error("Erreur lors de la mise à jour de la matière", error);
-    }
+
+async onUpdate() {
+  try {
+    await this.subjectService.updateSubject(this.subject.id, this.subject);
+    this.subjectUpdated.emit();
+
+    // ✅ Message de succès
+    Swal.fire({
+      title: 'Mise à jour réussie',
+      text: 'La matière a été mise à jour avec succès.',
+      icon: 'success',
+      confirmButtonText: 'OK',
+      width: '350px',
+      padding: '1.5em',
+      customClass: {
+        title: 'swal-title-custom',
+        popup: 'swal-popup-custom',
+        confirmButton: 'swal-confirm-button'
+      },
+      buttonsStyling: false
+    });
+
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour de la matière", error);
+
+    // ❌ Message d'erreur
+    Swal.fire({
+      title: 'Erreur',
+      text: 'Une erreur s’est produite lors de la mise à jour de la matière.',
+      icon: 'error',
+      confirmButtonText: 'OK',
+      width: '350px',
+      padding: '1.5em',
+      customClass: {
+        title: 'swal-title-custom',
+        popup: 'swal-popup-custom',
+        confirmButton: 'swal-confirm-button'
+      },
+      buttonsStyling: false
+    });
   }
+}
+
 }

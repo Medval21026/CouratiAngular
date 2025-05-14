@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthserviceService } from '../services/authservice.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-etudiant',
@@ -37,38 +38,127 @@ export class EtudiantComponent implements OnInit {
     }
   }
 
-  // Supprimer un étudiant
   async deleteEtudiant(id: number) {
-    const isConfirmed = confirm("Êtes-vous sûr de vouloir supprimer cet étudiant ?");
-    
-    if (!isConfirmed) {
-      return;  // Si l'utilisateur annule, on sort de la méthode
-    }
-  
+  const result = await Swal.fire({
+    title: 'Êtes-vous sûr ?',
+    text: 'Cette action supprimera définitivement cet étudiant.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Oui, supprimer',
+    cancelButtonText: 'Annuler',
+    reverseButtons: true,
+    width: '350px',
+    padding: '1.5em',
+    customClass: {
+      title: 'swal-title-custom',
+      popup: 'swal-popup-custom',
+      confirmButton: 'swal-confirm-button'
+    },
+  });
+
+  if (result.isConfirmed) {
     try {
       await this.authService.supprimerEtudiant(id);
       this.etudiants = this.etudiants.filter(e => e.id !== id);
       this.filteredEtudiants = this.filteredEtudiants.filter(e => e.id !== id);  // Mettre à jour la liste filtrée
+
+      Swal.fire({
+        title: 'Suppression réussie',
+        text: 'L\'étudiant a été supprimé avec succès.',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        width: '350px',
+        padding: '1.5em',
+        customClass: {
+          title: 'swal-title-custom',
+          popup: 'swal-popup-custom',
+          confirmButton: 'swal-confirm-button'
+        },
+        buttonsStyling: false
+      });
+
       console.log('Étudiant supprimé avec succès');
     } catch (error) {
       console.error('Erreur lors de la suppression de l’étudiant', error);
+
+      Swal.fire({
+        title: 'Erreur',
+        text: 'Une erreur est survenue lors de la suppression de l\'étudiant.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+        width: '350px',
+        padding: '1.5em',
+        customClass: {
+          title: 'swal-title-custom',
+          popup: 'swal-popup-custom',
+          confirmButton: 'swal-confirm-button'
+        },
+        buttonsStyling: false
+      });
     }
   }
+}
+
 
   // Activer l'abonnement pour un étudiant
   async activerSubscription() {
-    if (this.numeroTel) {
-      try {
-        const response = await this.authService.activerSubscription(this.numeroTel);
-        console.log('Abonnement activé', response);
-        await this.loadEtudiants();  // Recharger après succès
-      } catch (error) {
-        console.error('Erreur lors de l’activation de l’abonnement', error);
-      }
-    } else {
-      console.error('Numéro de téléphone invalide');
+  if (this.numeroTel) {
+    try {
+      const response = await this.authService.activerSubscription(this.numeroTel);
+      console.log('Abonnement activé', response);
+      await this.loadEtudiants();  // Recharger après succès
+
+      Swal.fire({
+        title: 'Activation réussie',
+        text: 'L\'abonnement a été activé avec succès.',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        width: '350px',
+        padding: '1.5em',
+        customClass: {
+          title: 'swal-title-custom',
+          popup: 'swal-popup-custom',
+          confirmButton: 'swal-confirm-button'
+        },
+        buttonsStyling: false
+      });
+    } catch (error) {
+      console.error('Erreur lors de l’activation de l’abonnement', error);
+
+      Swal.fire({
+        title: 'Erreur',
+        text: 'Une erreur est survenue lors de l\'activation de l\'abonnement.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+        width: '350px',
+        padding: '1.5em',
+        customClass: {
+          title: 'swal-title-custom',
+          popup: 'swal-popup-custom',
+          confirmButton: 'swal-confirm-button'
+        },
+        buttonsStyling: false
+      });
     }
+  } else {
+    console.error('Numéro de téléphone invalide');
+    Swal.fire({
+      title: 'Erreur',
+      text: 'Veuillez entrer un numéro de téléphone valide.',
+      icon: 'warning',
+      confirmButtonText: 'OK',
+      width: '350px',
+      padding: '1.5em',
+      customClass: {
+        title: 'swal-title-custom',
+        popup: 'swal-popup-custom',
+        confirmButton: 'swal-confirm-button'
+      },
+      buttonsStyling: false
+    });
   }
+}
+
 
   // Filtrer les étudiants en fonction du numéro de téléphone
   filterByPhoneNumber(): void {
