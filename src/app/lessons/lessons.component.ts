@@ -135,9 +135,8 @@ deleteLesson(id: number) {
     this.filterLessons();
   }
 
-  getFichierUrl(contentPath: string): string {
-  const fileName = contentPath.split('/').pop();
-  return `${environment.apiUrl}/uploads/devoirs/${fileName}`;
-}
-
+  getFichierUrl(lesson: string): string {
+    const content = lesson.split('/').pop(); // Récupère juste le nom du fichier
+    return `http://srv828261.hstgr.cloud/uploads/lessons/${content}`;
+  }
 }

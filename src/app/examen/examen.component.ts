@@ -134,9 +134,8 @@ deleteExamen(id: number) {
     this.examens = [...this.examens, newExamen];
   }
 
-  getFichierUrl(contentPath: string): string {
-  const fileName = contentPath.split('/').pop();
-  return `${environment.apiUrl}/uploads/devoirs/${fileName}`;
-}
-
+  getFichierUrl(examen: string): string {
+    const content = examen.split('/').pop(); // Récupère juste le nom du fichier
+    return `http://srv828261.hstgr.cloud/uploads/examens/${content}`;
+  }
 }

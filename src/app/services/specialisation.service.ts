@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SpecialisationService {
-  private apiUrl = 'http://localhost:8077/specializations';
+  private apiUrl = 'http://srv828261.hstgr.cloud/specializations';
 
   constructor() {}
 

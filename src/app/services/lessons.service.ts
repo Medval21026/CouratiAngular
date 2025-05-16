@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class LessonsService {
 
-  private apiUrl = 'http://localhost:8077/lessons'; // adapte l'URL si besoin
+  private apiUrl = 'http://srv828261.hstgr.cloud/lessons'; // adapte l'URL si besoin
 
   constructor() { }
   

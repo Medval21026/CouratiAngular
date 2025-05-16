@@ -129,10 +129,8 @@ deleteDevoir(id: number) {
   devoirAdded(newDevoir: any) {
     this.devoirs = [...this.devoirs, newDevoir];
   }
-
-  getFichierUrl(contentPath: string): string {
-  const fileName = contentPath.split('/').pop();
-  return `${environment.apiUrl}/uploads/devoirs/${fileName}`;
-}
-
+  getFichierUrl(devoir: string): string {
+    const content = devoir.split('/').pop(); // Récupère juste le nom du fichier
+    return `http://srv828261.hstgr.cloud/uploads/devoirs/${content}`;  
+  }
 }

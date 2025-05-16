@@ -131,9 +131,8 @@ deleteTd(id: number) {
     this.tds = [...this.tds, newTd];
   }
 
-  getFichierUrl(contentPath: string): string {
-  const fileName = contentPath.split('/').pop();
-  return `${environment.apiUrl}/uploads/devoirs/${fileName}`;
-}
-
+  getFichierUrl(tds: string): string {
+    const content = tds.split('/').pop(); // Récupère juste le nom du fichier
+    return `http://srv828261.hstgr.cloud/uploads/tps/${content}`;
+  }
 }
