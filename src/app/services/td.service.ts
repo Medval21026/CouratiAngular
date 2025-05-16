@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class TdService {
 
-  private apiUrl = 'http://localhost:8077/api/tds'; // URL de l'API des TDs
+  private apiUrl = 'http://srv828261.hstgr.cloud/api/tds'; // URL de l'API des TDs
 
   constructor() { }
 

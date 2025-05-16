@@ -75,6 +75,6 @@ export class TpComponent implements OnInit {
   }
   getFichierUrl(tps: string): string {
     const content = tps.split('/').pop(); // Récupère juste le nom du fichier
-    return `http://localhost:8077/uploads/tps/${content}`;
+    return `http://srv828261.hstgr.cloud/uploads/tps/${content}`;
   }
 }

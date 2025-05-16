@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SemestreService {
-  private baseUrl = 'http://localhost:8077/semestres'; // Remplace par ton URL backend si nécessaire
+  private baseUrl = 'http://srv828261.hstgr.cloud/semestres'; // Remplace par ton URL backend si nécessaire
 
   constructor() {}
 

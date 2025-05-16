@@ -75,6 +75,6 @@ export class ExamenComponent implements OnInit {
   }
   getFichierUrl(examen: string): string {
     const content = examen.split('/').pop(); // Récupère juste le nom du fichier
-    return `http://localhost:8077/uploads/examens/${content}`;
+    return `http://srv828261.hstgr.cloud/uploads/examens/${content}`;
   }
 }

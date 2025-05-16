@@ -77,7 +77,7 @@ export class DevoirComponent implements OnInit {
   }
   getFichierUrl(devoir: string): string {
     const content = devoir.split('/').pop(); // Récupère juste le nom du fichier
-    return `http://localhost:8077/uploads/devoirs/${content}`;  
+    return `http://srv828261.hstgr.cloud/uploads/devoirs/${content}`;  
   }
 }
   

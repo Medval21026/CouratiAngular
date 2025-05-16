@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class DevoirService {
 
-  private apiUrl = 'http://localhost:8077/devoirs'; // URL de l'API des devoirs
+  private apiUrl = 'http://srv828261.hstgr.cloud/devoirs'; // URL de l'API des devoirs
 
   constructor() { }
 
