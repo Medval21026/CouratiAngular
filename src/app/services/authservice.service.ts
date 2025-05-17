@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthserviceService {
-  private baseUrl = 'http://srv828261.hstgr.cloud/auth'; // Base de l’API
+  private baseUrl = 'https://srv828261.hstgr.cloud/auth'; // Base de l’API
 
   constructor() { }
 

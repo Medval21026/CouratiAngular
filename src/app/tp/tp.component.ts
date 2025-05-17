@@ -134,6 +134,6 @@ deleteTp(id: number) {
   }
   getFichierUrl(tps: string): string {
     const content = tps.split('/').pop(); // Récupère juste le nom du fichier
-    return `http://srv828261.hstgr.cloud/uploads/tps/${content}`;
+    return `https://srv828261.hstgr.cloud/uploads/tps/${content}`;
   }
 }

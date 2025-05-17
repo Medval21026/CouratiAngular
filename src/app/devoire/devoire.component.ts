@@ -131,6 +131,6 @@ deleteDevoir(id: number) {
   }
   getFichierUrl(devoir: string): string {
     const content = devoir.split('/').pop(); // Récupère juste le nom du fichier
-    return `http://srv828261.hstgr.cloud/uploads/devoirs/${content}`;  
+    return `https://srv828261.hstgr.cloud/uploads/devoirs/${content}`;  
   }
 }

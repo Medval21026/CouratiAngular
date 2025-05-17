@@ -136,6 +136,6 @@ deleteExamen(id: number) {
 
   getFichierUrl(examen: string): string {
     const content = examen.split('/').pop(); // Récupère juste le nom du fichier
-    return `http://srv828261.hstgr.cloud/uploads/examens/${content}`;
+    return `https://srv828261.hstgr.cloud/uploads/examens/${content}`;
   }
 }

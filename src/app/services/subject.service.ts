@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class SubjectService {
 
-  private baseUrl = 'http://srv828261.hstgr.cloud/subjects'; // à adapter selon ton backend
+  private baseUrl = 'https://srv828261.hstgr.cloud/subjects'; // à adapter selon ton backend
 
   constructor() { }
 

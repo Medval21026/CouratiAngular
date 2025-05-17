@@ -133,6 +133,6 @@ deleteTd(id: number) {
 
   getFichierUrl(tds: string): string {
     const content = tds.split('/').pop(); // Récupère juste le nom du fichier
-    return `http://srv828261.hstgr.cloud/uploads/tps/${content}`;
+    return `https://srv828261.hstgr.cloud/uploads/tps/${content}`;
   }
 }

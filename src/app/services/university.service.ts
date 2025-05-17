@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class UniversityService {
 
-  private readonly BASE_URL = 'http://srv828261.hstgr.cloud/universities';
+  private readonly BASE_URL = 'https://srv828261.hstgr.cloud/universities';
 
   constructor() { }
 

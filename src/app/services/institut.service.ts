@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class InstitutService {
-  private baseUrl = 'http://srv828261.hstgr.cloud/institutes'; // Remplace par ton URL backend
+  private baseUrl = 'https://srv828261.hstgr.cloud/institutes'; // Remplace par ton URL backend
 
   constructor() {}
 

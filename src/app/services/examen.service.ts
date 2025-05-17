@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class ExamenService {
 
-  private apiUrl = 'http://srv828261.hstgr.cloud/examens'; // URL de l'API des examens
+  private apiUrl = 'https://srv828261.hstgr.cloud/examens'; // URL de l'API des examens
 
   constructor() { }
 
